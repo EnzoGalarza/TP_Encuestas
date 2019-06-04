@@ -24,10 +24,11 @@ public class NodoPadre extends Nodo{
 			}
 			return this;
 		}
-		if (n.tieneSiguiente()) {
+		/*if (n.tieneSiguiente()) {
 			return nodosHijos.ultimoNodo();
 		}
-		return this;
+		return this;*/
+		return null;
 	}
 	@Override
 	public Pregunta pregunta() {
@@ -40,18 +41,19 @@ public class NodoPadre extends Nodo{
 	@Override
 	protected void agregar(Pregunta pregunta) {
 		//Si el nodo actual tiene un siguiente agrega recursivamente hasta llegar al nodo vacío, si no, crea un un nodo padre
-		if(nodosHijos.tieneSiguiente()) {
+		/*if(nodosHijos.tieneSiguiente()) {
 			nodosHijos.agregar(pregunta);
 		}else {
 			nodosHijos = new NodoPadre(pregunta, nodosHijos);
-		}
+		}*/
 	}
 	@Override
 	protected Nodo getNodo(Pregunta pregunta) {
-		 if(!nodosHijos.pregunta().equals(pregunta)){
+		 /*if(!nodosHijos.pregunta().equals(pregunta)){
 			 return null;
 		}
-		return nodosHijos;
+		return nodosHijos;*/
+		return null;
 	}
 	@Override
 	protected Pregunta agregarHijoCon(Pregunta pregunta) {
