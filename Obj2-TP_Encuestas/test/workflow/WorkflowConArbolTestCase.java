@@ -13,7 +13,7 @@ import respuesta.RespuestaCerrada;
 
 class WorkflowConArbolTestCase {
 
-	private Pregunta pregunta, otraPregunta;
+	/*private Pregunta pregunta, otraPregunta;
 	private WorkflowConArbol workflow;
 	private RespuestaCerrada respuesta;
 	
@@ -80,7 +80,7 @@ class WorkflowConArbolTestCase {
 				respuesta, preguntaDeSeleccionMultiple("Tiene heladera"));
 		
 		fail("whatever");
-	}
+	}*/
 
 
 	
