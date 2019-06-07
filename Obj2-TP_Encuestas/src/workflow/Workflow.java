@@ -10,8 +10,6 @@ public class Workflow {
 
 	private List<Pregunta> preguntas;
 	private Integer posicionPreguntaActual;
-	private Integer posicionSiguiente;
-	
 	
 	public Workflow() {
 		this.posicionPreguntaActual = 0;
