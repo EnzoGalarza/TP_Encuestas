@@ -1,6 +1,7 @@
 package respuesta;
 
 import pregunta.Pregunta;
+import pregunta.PreguntaDeSeleccionSimple;
 
 public abstract class Respuesta {
 
