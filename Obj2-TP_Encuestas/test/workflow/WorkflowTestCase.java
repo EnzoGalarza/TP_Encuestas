@@ -28,10 +28,8 @@ class WorkflowTestCase {
 	}
 	
 	@Test
-	void testUnWorkflowNaceConUnaPreguntaEnLaPosicion1() {
-		
+	void testAgregarPregunta() {
 		assertEquals(preguntaInicial,this.workflow.getPregunta());
-		assertEquals(1,this.workflow.posicionPreguntaActual());
 	}
 	
 	
@@ -40,7 +38,7 @@ class WorkflowTestCase {
 		this.workflow.agregarPregunta(segundaPregunta);
 		workflow.siguiente();
 		assertEquals(segundaPregunta,workflow.getPregunta());
-		assertEquals(2,this.workflow.posicionPreguntaActual());
+		assertEquals(1,this.workflow.posicionPreguntaActual());
 	}
 	
 	@Test
@@ -53,7 +51,7 @@ class WorkflowTestCase {
 		
 		this.workflow.anterior();
 		assertEquals(tercerPregunta,workflow.getPregunta());
-		assertEquals(3,workflow.posicionPreguntaActual());
+		assertEquals(2,workflow.posicionPreguntaActual());
 	}
 	
 	@Test
