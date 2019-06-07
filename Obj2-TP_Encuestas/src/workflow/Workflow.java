@@ -1,27 +1,26 @@
 package workflow;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+
+import java.util.List;
 
 import pregunta.Pregunta;
 
 public class Workflow {
 
-	private Map<Integer,Pregunta> preguntas;
+	private List<Pregunta> preguntas;
 	private Integer posicionPreguntaActual;
-	private Pregunta preguntaActual;
 	private Integer posicionSiguiente;
 	
 	
 	public Workflow() {
 		this.posicionPreguntaActual = 0;
-		this.preguntas = new HashMap<Integer,Pregunta>();
-		this.posicionSiguiente = 1;
+		this.preguntas = new ArrayList<Pregunta>();
 	}
 
 
 	public Pregunta getPregunta() {
-		return this.preguntaActual;
+		return this.preguntas.get(this.posicionPreguntaActual);
 	}
 
 
@@ -31,30 +30,23 @@ public class Workflow {
 
 
 	public void agregarPregunta(Pregunta nuevaPregunta) {
-		this.preguntas.put(posicionSiguiente, nuevaPregunta);
-		if(posicionPreguntaActual == 0) {
-			this.preguntaActual = nuevaPregunta;
-			this.posicionPreguntaActual++;
-		}
-		this.posicionSiguiente++;
+		this.preguntas.add(nuevaPregunta);
 	}
 
 
 	public void siguiente() {
 		if(this.continua()) {
 			this.posicionPreguntaActual++;
-			this.preguntaActual = this.preguntas.get(posicionPreguntaActual);
 		}
 	}
 
 	public Boolean continua() {
-		return this.preguntas.containsKey(posicionPreguntaActual+1);
+		return this.posicionPreguntaActual+1 < this.preguntas.size();
 	}
 
 	public void anterior() {
-		if(this.preguntas.containsKey(posicionPreguntaActual-1)) {
+		if(this.posicionPreguntaActual > 0) {
 			this.posicionPreguntaActual--;
-			this.preguntaActual = this.preguntas.get(posicionPreguntaActual);
 		}
 	}
 	
