@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="/home/enzo/Descargas/mockito-all-2.0.2-beta.jar"/>
+	<classpathentry kind="lib" path="/home/apprentice/Escritorio/mockito-all-2.0.2-beta.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

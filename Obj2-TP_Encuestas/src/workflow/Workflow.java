@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import archivo.ArchivoDeRespuestasRealizadas;
+import archivo.ArchivoDeRespuestas;
 import pregunta.Pregunta;
 import respuesta.Respuesta;
 
@@ -13,9 +13,9 @@ public class Workflow {
 
 	private List<Pregunta> preguntas;
 	private Integer posicionPreguntaActual;
-	private ArchivoDeRespuestasRealizadas archivo;
+	private ArchivoDeRespuestas archivo;
 	
-	public Workflow(ArchivoDeRespuestasRealizadas archivo) {
+	public Workflow(ArchivoDeRespuestas archivo) {
 		this.posicionPreguntaActual = 0;
 		this.preguntas = new ArrayList<Pregunta>();
 		this.archivo = archivo;
@@ -44,6 +44,7 @@ public class Workflow {
 	}
 
 	public Boolean continua() {
+		//Quedan preguntas por responder.
 		return this.posicionPreguntaActual+1 < this.preguntas.size();
 	}
 
@@ -54,7 +55,7 @@ public class Workflow {
 	}
 	
 	public void responder(Respuesta respuesta) {
-		this.archivo.registrarRespuesta(this.getPregunta(),respuesta);
+		this.archivo.guardar(this.getPregunta(),respuesta);
 	}
 	
 }
