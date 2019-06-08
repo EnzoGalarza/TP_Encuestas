@@ -1,8 +1,6 @@
 package workflow;
 
 import java.util.ArrayList;
-
-
 import java.util.List;
 
 import archivo.ArchivoDeRespuestas;
@@ -15,10 +13,10 @@ public class Workflow {
 	private Integer posicionPreguntaActual;
 	private ArchivoDeRespuestas archivo;
 	
-	public Workflow(ArchivoDeRespuestas archivo) {
+	public Workflow(ArchivoDeRespuestas archivo2) {
 		this.posicionPreguntaActual = 0;
 		this.preguntas = new ArrayList<Pregunta>();
-		this.archivo = archivo;
+		this.archivo = archivo2;
 	}
 
 
@@ -44,7 +42,7 @@ public class Workflow {
 	}
 
 	public Boolean continua() {
-		//Quedan preguntas por responder.
+		//Dice si quedan preguntas por responder.
 		return this.posicionPreguntaActual+1 < this.preguntas.size();
 	}
 
