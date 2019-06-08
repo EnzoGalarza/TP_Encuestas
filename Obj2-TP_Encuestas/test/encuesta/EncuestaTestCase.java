@@ -18,12 +18,9 @@ class EncuestaTestCase {
 	private Encuesta encuestaNoRespondible;
 	private Pregunta primerPreguntaProtocolo;
 	private Pregunta segundaPreguntaProtocolo;
-	private Respuesta respuestaAPrimerPregunta, respuestaASegundaPregunta;
 	
 	@BeforeEach
 	public void setUp() {
-		this.respuestaAPrimerPregunta = mock(Respuesta.class);
-		this.respuestaASegundaPregunta = mock(Respuesta.class);
 		this.primerPreguntaProtocolo = mock(Pregunta.class);
 		this.segundaPreguntaProtocolo = mock(Pregunta.class);
 		this.protocolo = mock(Workflow.class);
@@ -73,30 +70,4 @@ class EncuestaTestCase {
 		verify(protocolo,times(1)).anterior();
 	}
 	
-	@Test
-	void testUnaPreguntaDeLaEncuestaSeRespondeConUnaRespuesta() {
-		agregarUnaPreguntaYResponderla();
-		verify(primerPreguntaProtocolo,times(1)).responder(respuestaAPrimerPregunta);
-	}
-
-	private void agregarUnaPreguntaYResponderla() {
-		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
-		this.encuesta.responderPreguntaActual(respuestaAPrimerPregunta);
-	}
-	
-	@Test
-	void testUnaEncuestaGuardaLaRespuestaASusPreguntas() {
-		agregarPreguntasYResponderlas();
-		
-		assertEquals(2,this.encuesta.cantidadDeRespuestasRealizadas());
-	}
-
-	private void agregarPreguntasYResponderlas() {
-		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
-		this.encuesta.agregarPregunta(segundaPreguntaProtocolo);
-		this.encuesta.responderPreguntaActual(respuestaAPrimerPregunta);
-		when(protocolo.getPregunta()).thenReturn(segundaPreguntaProtocolo);
-		this.encuesta.siguiente();
-		this.encuesta.responderPreguntaActual(respuestaASegundaPregunta);
-	}
 }

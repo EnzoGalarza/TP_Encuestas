@@ -1,57 +1,43 @@
 package respuesta;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pregunta.PreguntaDeSeleccion;
+
+import pregunta.PreguntaAbierta;
+import pregunta.PreguntaDeSeleccionMultiple;
+import pregunta.PreguntaDeSeleccionSimple;
 import workflow.Workflow;
 
 import static org.mockito.Mockito.*;
 
 class RespuestaCerradaTestCase {
 
-	private PreguntaDeSeleccion preguntaAResponderMultiple;
-    private PreguntaDeSeleccion preguntaAResponderSimple;
+	private PreguntaDeSeleccionMultiple preguntaAResponderMultiple;
+    private PreguntaDeSeleccionSimple preguntaAResponderSimple;
+    private PreguntaAbierta preguntaAbierta;
     private RespuestaCerrada respuestaAMultiple;
     private RespuestaCerrada respuestaASimple;
+    private RespuestaCerrada respuesta;
 	private Workflow workflow;
     
 	@BeforeEach
 	public void setUp() {
 		this.workflow = mock(Workflow.class);
-		this.preguntaAResponderMultiple = mock(PreguntaDeSeleccion.class);
-		this.preguntaAResponderSimple = mock(PreguntaDeSeleccion.class);
-		this.respuestaAMultiple = new RespuestaCerrada("25",preguntaAResponderMultiple,workflow);
-		this.respuestaASimple = new RespuestaCerrada("35",preguntaAResponderSimple,workflow);
+		this.preguntaAResponderMultiple = mock(PreguntaDeSeleccionMultiple.class);
+		this.preguntaAResponderSimple = mock(PreguntaDeSeleccionSimple.class);
+		this.preguntaAbierta = mock(PreguntaAbierta.class);
+		this.respuestaAMultiple = new RespuestaCerrada("25",preguntaAResponderMultiple);
+		this.respuestaASimple = new RespuestaCerrada("35",preguntaAResponderSimple);
+		this.respuesta = new RespuestaCerrada("Estamos casados",preguntaAbierta);
 	}
 	
 	@Test
-	void testUnaRespuestaCerradaNoEsUnaRespuestaLibre() {
-		assertFalse(respuestaAMultiple.esRespuestaLibre());
-		assertFalse(respuestaASimple.esRespuestaLibre());
-	}
-	
-	@Test
-	void testUnaRespuestaCerradaTieneUnaPreguntaMultipleOpcionALaCualResponder() {
-		assertEquals(respuestaAMultiple.getPreguntaRespondida(),this.preguntaAResponderMultiple);
-		assertEquals(respuestaASimple.getPreguntaRespondida(),this.preguntaAResponderSimple);
-	}
-	
-	@Test
-	void testUnaRespuestaCerradaSeRespondeConUnTextoDeRespuestaSiEsPosibleResponderYCambiaLaSiguientePreguntaDeSuWorkflow() {
-		when(preguntaAResponderMultiple.comprobarSiEsRespuestaPosible(respuestaAMultiple)).thenReturn(true);
-		respuestaAMultiple.responder(respuestaAMultiple.getTextoRespuesta());
-		
-		assertEquals("25",respuestaAMultiple.getTextoRespuesta());
-		verify(workflow,times(1)).siguiente();
-	}
-	
-	@Test
-	void testUnaRespuestaCerradaNoSeRespondeSiNoEsPosibleLaRespuestaYNoCambiaSuWorkflow() {
-		when(preguntaAResponderSimple.comprobarSiEsRespuestaPosible(respuestaASimple)).thenReturn(false);
-		respuestaASimple.responder("Es Nueva");
-		assertEquals("35",respuestaASimple.getTextoRespuesta());
-		verifyZeroInteractions(workflow);
+	void testRespuestaCerradaConoceAUnaProximaPregunta() {
+	    assertEquals(preguntaAResponderMultiple,respuestaAMultiple.getSiguientePregunta());
+	    assertEquals(preguntaAResponderSimple,respuestaASimple.getSiguientePregunta());
+	    assertEquals(preguntaAbierta,respuesta.getSiguientePregunta());
 	}
 	
 }

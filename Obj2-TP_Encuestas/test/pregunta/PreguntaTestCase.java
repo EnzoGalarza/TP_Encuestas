@@ -18,11 +18,12 @@ class PreguntaTestCase {
 	@BeforeEach
 	public void setUp() {
 		pregunta2 = new PreguntaDeSeleccionSimple("De que color te gustaria",posiblesRespuestas);
-		pregunta = new PreguntaAbierta("De que color es",pregunta2);
+		pregunta = new PreguntaAbierta("De que color es");
 	}
 	
 	@Test
 	void testUnaPreguntaTieneUnTexto() {
 		assertEquals("De que color es?",pregunta.getTextoPregunta());
+		assertEquals("De que color te gustaria?",pregunta2.getTextoPregunta());
 	}
 }

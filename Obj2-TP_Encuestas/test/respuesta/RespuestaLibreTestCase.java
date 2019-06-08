@@ -18,21 +18,4 @@ class RespuestaLibreTestCase {
 		this.respuesta = new RespuestaLibre(preguntaAResponder);
 	}
 	
-	@Test
-	void testUnaRespuestaLibreEsUnaRespuestaLibre() {
-		assertTrue(respuesta.esRespuestaLibre());
-	}
-	
-	@Test
-	void testUnaNuevaRespuestaLibreTieneUnTextoVacioComoRespuestaYUnaPreguntaAResponder() {
-		assertEquals("",respuesta.getTextoRespuesta());
-		assertEquals(preguntaAResponder,this.respuesta.getPreguntaRespondida());
-	}
-
-	@Test
-	void testResponderUnaPreguntaAbiertaConTextoRespuesta() {
-		this.respuesta.responder("15 años");
-		assertEquals("15 años",respuesta.getTextoRespuesta());
-	}
-	
 }

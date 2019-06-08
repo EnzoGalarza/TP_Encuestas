@@ -26,12 +26,13 @@ class PreguntaDeSeleccionTestCase {
 		respuestaPosible2 = mock(RespuestaCerrada.class);
 		posiblesRespuestas.add(respuestaPosible1);
 		posiblesRespuestas.add(respuestaPosible2);
-		this.pregunta = new PreguntaDeSeleccionMultiple("Cuantos hijos tiene",posiblesRespuestas,siguientePregunta);
+		this.pregunta = new PreguntaDeSeleccionMultiple("Cuantos hijos tiene",posiblesRespuestas);
 	}
 	
 	@Test
 	void testUnaPreguntaMultipleOpcionTieneMultiplesRespuestasPosibles() {
 		assertEquals(posiblesRespuestas,pregunta.getPosiblesRespuestas());
 	}
+	
 
 }

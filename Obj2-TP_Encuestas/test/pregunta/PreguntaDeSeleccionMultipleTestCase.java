@@ -28,28 +28,7 @@ class PreguntaDeSeleccionMultipleTestCase {
 		respuestaNoPosible = mock(RespuestaCerrada.class);
 		posiblesRespuestas.add(respuestaPosible1);
 		posiblesRespuestas.add(respuestaPosible2);
-		this.pregunta = new PreguntaDeSeleccionMultiple("Cuanto gana por mes",posiblesRespuestas,siguientePregunta);
-	}
-	
-	@Test
-	void testPreguntaMultipleSeleccionTieneUnaSiguientePregunta() {
-		assertEquals(siguientePregunta,pregunta.getSiguientePregunta());
-	}
-	
-	@Test
-	void testPreguntaMultipleSeleccionResponderDosPosiblesRespuestas() {
-		when(respuestaPosible1.esRespuestaLibre()).thenReturn(false);
-		when(respuestaPosible2.esRespuestaLibre()).thenReturn(false);
-		pregunta.responder(respuestaPosible1);
-		pregunta.responder(respuestaPosible2);
-		assertEquals(2,this.pregunta.getRespuestasElegidas().size());
-	}
-	
-	@Test
-	void testPreguntaMultipleSeleccionResponderUnaRespuestaNoPosible() {
-		when(respuestaNoPosible.esRespuestaLibre()).thenReturn(false);
-		pregunta.responder(respuestaNoPosible);
-		assertEquals(0,this.pregunta.cantidadDeRespuestas());
+		this.pregunta = new PreguntaDeSeleccionMultiple("Cuanto gana por mes",posiblesRespuestas);
 	}
 
 }

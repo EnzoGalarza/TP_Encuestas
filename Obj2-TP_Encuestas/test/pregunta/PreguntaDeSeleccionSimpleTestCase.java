@@ -33,18 +33,5 @@ class PreguntaDeSeleccionSimpleTestCase {
 	void testUnaPreguntaDeSeleccionSimpleTieneUnasPosiblesRespuestas() {
 	    assertEquals(posiblesRespuestas,pregunta.getPosiblesRespuestas());
 	}
-	
-	@Test
-	void testUnaPreguntaDeSeleccionSimpleAlResponderTieneUnaUnicaRespuesta() {
-		pregunta.responder(respuestaPosible1);
-		pregunta.responder(respuestaPosible2);
-		assertEquals(respuestaPosible2,pregunta.getRespuestaElegida());
-	}
-	
-	@Test
-	void testPreguntaDeSeleccionSimpleNoRespondeUnaRespuestaNoPosible() {
-		pregunta.responder(respuestaNoPosible);
-		assertThrows(RuntimeException.class, () -> {this.pregunta.getRespuestaElegida();});
-	}
 
 }

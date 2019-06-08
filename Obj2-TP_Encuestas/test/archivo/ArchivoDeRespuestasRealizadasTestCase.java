@@ -4,7 +4,7 @@ package archivo;
 
 import org.junit.jupiter.api.Test;
 
-class ArchivoDeRespuestasRealizadas {
+class ArchivoDeRespuestasRealizadasTestCase {
 
 	@Test
 	void test_TieneUnaEncuestaYUnaSerieDeRespuestas() {

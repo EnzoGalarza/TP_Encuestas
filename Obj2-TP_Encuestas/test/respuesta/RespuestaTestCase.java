@@ -23,7 +23,7 @@ class RespuestaTestCase {
 		workflow = mock(Workflow.class);
 		preguntaAResponderLibre = mock(PreguntaAbierta.class);
 		preguntaAResponderCerrada = mock(PreguntaDeSeleccion.class);
-		respuestaCerrada = new RespuestaCerrada("Mas de 30",preguntaAResponderCerrada,workflow);
+		respuestaCerrada = new RespuestaCerrada("Mas de 30");
 		respuestaLibre = new RespuestaLibre(preguntaAResponderLibre);
 	}
 	

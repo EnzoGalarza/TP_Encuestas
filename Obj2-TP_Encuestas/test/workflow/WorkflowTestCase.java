@@ -1,29 +1,32 @@
 package workflow;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+
+import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import archivo.ArchivoDeRespuestasRealizadas;
 import pregunta.Pregunta;
+import respuesta.Respuesta;
 import workflow.Workflow;
 
 class WorkflowTestCase {
 
 	private Workflow workflow;
-	private Pregunta preguntaInicial;
-	private Pregunta segundaPregunta;
-	private Pregunta tercerPregunta;
-	private Pregunta ultimaPregunta;
+	private Pregunta preguntaInicial,segundaPregunta,tercerPregunta ,ultimaPregunta;
+	private ArchivoDeRespuestasRealizadas archivo;
+	private Respuesta respuesta,respuesta2;
 	
 	@BeforeEach
 	public void setUp() {
+		this.archivo = mock(ArchivoDeRespuestasRealizadas.class);
 		this.preguntaInicial = mock(Pregunta.class);
 		this.segundaPregunta = mock(Pregunta.class);
 		this.tercerPregunta = mock(Pregunta.class);
 		this.ultimaPregunta = mock(Pregunta.class);
-		this.workflow = new Workflow();
+		this.workflow = new Workflow(archivo);
 		this.workflow.agregarPregunta(preguntaInicial);
 	}
 	
@@ -65,9 +68,14 @@ class WorkflowTestCase {
 	}
 	
 	@Test
-	void test_unWorkflowPuedeDireccionarseAUnaProximaPregunta() {
+	void testResponderPreguntaWorkflow() {
 		agregarPreguntasAlProtocolo();
-		
+		this.workflow.responder(respuesta);
+		verify(archivo,times(1)).registrarRespuesta(preguntaInicial,respuesta);
+		assertTrue(workflow.continua());
+		this.workflow.siguiente();
+		this.workflow.responder(respuesta2);
+		verify(archivo,times(1)).registrarRespuesta(segundaPregunta, respuesta);
 	}
 
 	private void agregarPreguntasAlProtocolo() {
@@ -76,5 +84,4 @@ class WorkflowTestCase {
 		this.workflow.agregarPregunta(ultimaPregunta);
 	}
 	
-
 }
