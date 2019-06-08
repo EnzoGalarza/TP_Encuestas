@@ -2,18 +2,23 @@ package workflow;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 
+import archivo.ArchivoDeRespuestasRealizadas;
 import pregunta.Pregunta;
+import respuesta.Respuesta;
 
 public class Workflow {
 
 	private List<Pregunta> preguntas;
 	private Integer posicionPreguntaActual;
+	private ArchivoDeRespuestasRealizadas archivo;
 	
-	public Workflow() {
+	public Workflow(ArchivoDeRespuestasRealizadas archivo) {
 		this.posicionPreguntaActual = 0;
 		this.preguntas = new ArrayList<Pregunta>();
+		this.archivo = archivo;
 	}
 
 
@@ -46,6 +51,10 @@ public class Workflow {
 		if(this.posicionPreguntaActual > 0) {
 			this.posicionPreguntaActual--;
 		}
+	}
+	
+	public void responder(Respuesta respuesta) {
+		this.archivo.registrarRespuesta(this.getPregunta(),respuesta);
 	}
 	
 }

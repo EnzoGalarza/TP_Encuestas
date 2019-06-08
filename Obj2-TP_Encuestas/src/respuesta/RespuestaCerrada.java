@@ -6,31 +6,22 @@ import pregunta.PreguntaDeSeleccionSimple;
 import workflow.Workflow;
 
 public class RespuestaCerrada extends Respuesta {
-
-	private PreguntaDeSeleccion preguntaAResponder;
-	private Workflow workflow;
 	
-	public RespuestaCerrada(String textoRespuesta, PreguntaDeSeleccion preguntaAResponder, Workflow workflow) {
+	private Pregunta siguientePregunta;
+	
+	public RespuestaCerrada(String textoRespuesta) {
 		this.textoRespuesta = textoRespuesta;
-		this.preguntaAResponder = preguntaAResponder;
-		this.workflow = workflow;
 	}
 
-	@Override
-	public void responder(String respuesta) {
-		if(this.preguntaAResponder.comprobarSiEsRespuestaPosible(this)){
-			this.textoRespuesta = respuesta;
-			this.workflow.siguiente();
-		}
+	public RespuestaCerrada(String string, Pregunta preguntaSiguiente) {
+		// TODO Auto-generated constructor stub
+		this.textoRespuesta = string;
+		this.siguientePregunta = preguntaSiguiente;
 	}
 
-	public PreguntaDeSeleccion getPreguntaRespondida() {
-		return this.preguntaAResponder;
-	}
-
-	@Override
-	public boolean esRespuestaLibre() {
-		return false;
+	public Pregunta getSiguientePregunta() {
+		// TODO Auto-generated method stub
+		return this.siguientePregunta;
 	}
 
 }

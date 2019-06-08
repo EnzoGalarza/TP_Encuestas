@@ -8,7 +8,6 @@ import respuesta.Respuesta;
 public abstract class PreguntaDeSeleccion extends Pregunta {
 
 	private Collection<Respuesta> posiblesRespuestas;
-	protected List<Respuesta> respuestasElegidas;
 
 	public PreguntaDeSeleccion(Collection<Respuesta> posiblesRespuestas) {
 		this.posiblesRespuestas = posiblesRespuestas;
@@ -18,9 +17,9 @@ public abstract class PreguntaDeSeleccion extends Pregunta {
 		return this.posiblesRespuestas;
 	}
 
-	public Boolean comprobarSiEsRespuestaPosible(Respuesta respuesta) {
+	/*public Boolean comprobarSiEsRespuestaPosible(Respuesta respuesta) {
 		return (this.posiblesRespuestas.contains(respuesta));
-	}
+	}*/
 
 
 }
