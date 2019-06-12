@@ -11,6 +11,12 @@ public abstract class Pregunta {
 		return this.textoPregunta + "?";
 	}
 
+
+	public Boolean esPreguntaSeleccionSimple() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	//public abstract void responder(Respuesta respuesta);
 	
 }
