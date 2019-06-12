@@ -10,5 +10,9 @@ public abstract class Respuesta {
 	public String getTextoRespuesta() {
 		return this.textoRespuesta;
 	}
+
+	public Pregunta getSiguientePregunta() {
+		return null;
+	}
 	
 }

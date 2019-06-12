@@ -50,14 +50,14 @@ public class Workflow {
 
 	public Boolean continua() {
 		//Dice si quedan preguntas por responder.
-		return this.posicionPreguntaActual+1 <= this.preguntas.size();
+		return this.posicionPreguntaActual+1 < this.preguntas.size();
 	}
 
 	public void anterior() {
-		if(this.posicionPreguntaAnterior >= 0) {
+		if(this.posicionPreguntaAnterior > 0) {
 			this.preguntaActual = this.preguntas.get(posicionPreguntaAnterior);
-			this.posicionPreguntaAnterior--;
 			this.posicionPreguntaActual--;
+			this.posicionPreguntaAnterior--;
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class Workflow {
 		this.archivo.guardar(this.getPregunta(),respuesta);
 		if(this.getPregunta().esPreguntaSeleccionSimple()) {
 			this.posicionPreguntaAnterior = this.posicionPreguntaActual;
-			this.posicionPreguntaActual = this.preguntas.indexOf(respuesta.getSiguientePregunta()) - 1; 
+			this.posicionPreguntaActual = this.preguntas.indexOf(respuesta.getSiguientePregunta()); 
 		}
 	}
 	

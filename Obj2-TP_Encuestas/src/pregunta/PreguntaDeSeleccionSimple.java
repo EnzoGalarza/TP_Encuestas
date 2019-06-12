@@ -36,4 +36,9 @@ public class PreguntaDeSeleccionSimple extends PreguntaDeSeleccion {
 	 		throw new RuntimeException("No completo con una respuesta");
 	}*/
 	
+	@Override
+	public Boolean esPreguntaSeleccionSimple() {
+		return true;
+	}
+	
 }

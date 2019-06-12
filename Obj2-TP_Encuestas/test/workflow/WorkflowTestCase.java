@@ -26,6 +26,11 @@ class WorkflowTestCase {
 		this.segundaPregunta = mock(Pregunta.class);
 		this.tercerPregunta = mock(Pregunta.class);
 		this.ultimaPregunta = mock(Pregunta.class);
+<<<<<<< HEAD
+=======
+		this.respuesta = mock(Respuesta.class);
+		this.respuesta2 = mock(Respuesta.class);
+>>>>>>> respuesta
 		this.workflow = new Workflow(archivo,preguntaInicial);
 	}
 	
@@ -50,7 +55,7 @@ class WorkflowTestCase {
 		this.workflow.siguiente();
 		this.workflow.siguiente();
 		this.workflow.siguiente();
-		
+		assertEquals(ultimaPregunta,workflow.getPregunta());
 		this.workflow.anterior();
 		assertEquals(tercerPregunta,workflow.getPregunta());
 		assertEquals(2,workflow.posicionPreguntaActual());
@@ -74,7 +79,7 @@ class WorkflowTestCase {
 		assertTrue(workflow.continua());
 		this.workflow.siguiente();
 		this.workflow.responder(respuesta2);
-		verify(archivo,times(1)).guardar(segundaPregunta, respuesta);
+		verify(archivo,times(1)).guardar(segundaPregunta, respuesta2);
 	}
 
 	private void agregarPreguntasAlProtocolo() {
