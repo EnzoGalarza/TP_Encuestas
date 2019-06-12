@@ -54,8 +54,10 @@ public class Workflow {
 	}
 
 	public void anterior() {
-		if(this.posicionPreguntaAnterior > 0) {
+		if(this.posicionPreguntaAnterior >= 0) {
 			this.preguntaActual = this.preguntas.get(posicionPreguntaAnterior);
+			this.posicionPreguntaAnterior--;
+			this.posicionPreguntaActual--;
 		}
 	}
 	
