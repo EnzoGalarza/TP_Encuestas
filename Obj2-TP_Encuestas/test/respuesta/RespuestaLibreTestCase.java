@@ -9,6 +9,7 @@ import pregunta.PreguntaAbierta;
 import static org.mockito.Mockito.*;
 
 class RespuestaLibreTestCase {
+	
 	private RespuestaLibre respuesta;
 	private PreguntaAbierta preguntaAResponder;
 	

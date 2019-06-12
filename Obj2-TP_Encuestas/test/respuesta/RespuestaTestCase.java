@@ -32,5 +32,10 @@ class RespuestaTestCase {
 		assertEquals("", respuestaLibre.getTextoRespuesta());
 		assertEquals("Mas de 30",respuestaCerrada.getTextoRespuesta());
 	}
+	
+	@Test
+	void testUnaRespuestaSiNoEsCerradaNoTieneUnaSiguientePregunta() {
+		assertEquals(null,respuestaLibre.getSiguientePregunta());
+	}
 
 }
