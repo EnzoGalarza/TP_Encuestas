@@ -26,11 +26,8 @@ class WorkflowTestCase {
 		this.segundaPregunta = mock(Pregunta.class);
 		this.tercerPregunta = mock(Pregunta.class);
 		this.ultimaPregunta = mock(Pregunta.class);
-<<<<<<< HEAD
-=======
 		this.respuesta = mock(Respuesta.class);
 		this.respuesta2 = mock(Respuesta.class);
->>>>>>> respuesta
 		this.workflow = new Workflow(archivo,preguntaInicial);
 	}
 	
