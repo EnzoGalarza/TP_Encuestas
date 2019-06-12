@@ -19,6 +19,7 @@ public class RespuestaCerrada extends Respuesta {
 		this.siguientePregunta = preguntaSiguiente;
 	}
 
+	@Override
 	public Pregunta getSiguientePregunta() {
 		// TODO Auto-generated method stub
 		return this.siguientePregunta;
