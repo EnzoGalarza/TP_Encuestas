@@ -11,17 +11,22 @@ public class Workflow {
 
 	private List<Pregunta> preguntas;
 	private Integer posicionPreguntaActual;
+	private Integer posicionPreguntaAnterior;
 	private ArchivoDeRespuestas archivo;
+	private Pregunta preguntaActual;
 	
-	public Workflow(ArchivoDeRespuestas archivo2) {
+	public Workflow(ArchivoDeRespuestas archivo,Pregunta pregunta) {
 		this.posicionPreguntaActual = 0;
+		this.posicionPreguntaAnterior = -1;
 		this.preguntas = new ArrayList<Pregunta>();
-		this.archivo = archivo2;
+		this.preguntas.add(pregunta);
+		this.preguntaActual = pregunta;
+		this.archivo = archivo;
 	}
 
 
 	public Pregunta getPregunta() {
-		return this.preguntas.get(this.posicionPreguntaActual);
+		return this.preguntaActual;
 	}
 
 
@@ -38,22 +43,30 @@ public class Workflow {
 	public void siguiente() {
 		if(this.continua()) {
 			this.posicionPreguntaActual++;
+			this.posicionPreguntaAnterior++;
+			this.preguntaActual = this.preguntas.get(posicionPreguntaActual);
 		}
 	}
 
 	public Boolean continua() {
 		//Dice si quedan preguntas por responder.
-		return this.posicionPreguntaActual+1 < this.preguntas.size();
+		return this.posicionPreguntaActual+1 <= this.preguntas.size();
 	}
 
 	public void anterior() {
-		if(this.posicionPreguntaActual > 0) {
-			this.posicionPreguntaActual--;
+		if(this.posicionPreguntaAnterior > 0) {
+			this.preguntaActual = this.preguntas.get(posicionPreguntaAnterior);
 		}
 	}
 	
 	public void responder(Respuesta respuesta) {
+		//Aca cambie esto del responder para la siguiente pregunta... igual hay que preguntar
+		// en clase por que seguimos con los problemas de tipo 
 		this.archivo.guardar(this.getPregunta(),respuesta);
+		if(this.getPregunta().esPreguntaSeleccionSimple()) {
+			this.posicionPreguntaAnterior = this.posicionPreguntaActual;
+			this.posicionPreguntaActual = this.preguntas.indexOf(respuesta.getSiguientePregunta()) - 1; 
+		}
 	}
 	
 }
