@@ -14,7 +14,12 @@ class PreguntaAbiertaTestCase {
 	
 	@BeforeEach
 	public void setUp() {
-		
+		this.pregunta = new PreguntaAbierta("Es de color verde");
+	}
+	
+	@Test
+	void testUnaPreguntaAbiertaTieneUnTextoDePregunta() {
+		assertEquals("Es de color verde?",this.pregunta.getTextoPregunta());
 	}
 	
 }

@@ -11,19 +11,25 @@ import respuesta.Respuesta;
 
 class PreguntaTestCase {
 
-	private Pregunta pregunta;
-	private Pregunta pregunta2;
+	private Pregunta preguntaAbierta;
+	private Pregunta preguntaSeleccionSimple;
 	private List<Respuesta> posiblesRespuestas;
 	
 	@BeforeEach
 	public void setUp() {
-		pregunta2 = new PreguntaDeSeleccionSimple("De que color te gustaria",posiblesRespuestas);
-		pregunta = new PreguntaAbierta("De que color es");
+		preguntaSeleccionSimple = new PreguntaDeSeleccionSimple("De que color te gustaria",posiblesRespuestas);
+		preguntaAbierta = new PreguntaAbierta("De que color es");
 	}
 	
 	@Test
 	void testUnaPreguntaTieneUnTexto() {
-		assertEquals("De que color es?",pregunta.getTextoPregunta());
-		assertEquals("De que color te gustaria?",pregunta2.getTextoPregunta());
+		assertEquals("De que color es?",preguntaAbierta.getTextoPregunta());
+		assertEquals("De que color te gustaria?",preguntaSeleccionSimple.getTextoPregunta());
+	}
+	
+	@Test
+	void testUnaPreguntaSabeSiEsDeSeleccionSimpleONo() {
+		assertFalse(this.preguntaAbierta.esPreguntaSeleccionSimple());
+		assertTrue(this.preguntaSeleccionSimple.esPreguntaSeleccionSimple());
 	}
 }
