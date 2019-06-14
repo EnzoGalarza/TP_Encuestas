@@ -19,13 +19,14 @@ class testProyecto {
 		encuestas = new ArrayList<Encuesta>();
 		encuesta1 = mock(Encuesta.class);
 		encuesta2 = mock(Encuesta.class);
-		proyecto1 = new Proyecto("Proyecto");
+		proyecto1 = new Proyecto("Descripcion", "Proposito");
 		encuestas.add(encuesta1); encuestas.add(encuesta2);
 	}
 
 	@Test
-	void testProyectoTieneUnNombre() {
-		assertEquals("Proyecto", proyecto1.getNombre());
+	void tieneUnPropositoYUnaDescripcion() {
+		assertEquals("Descripcion", proyecto1.descripcion());
+		assertEquals("Proposito", proyecto1.proposito());
 	}
 
 	@Test

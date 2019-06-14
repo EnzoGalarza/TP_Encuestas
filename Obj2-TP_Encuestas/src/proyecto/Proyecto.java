@@ -7,16 +7,18 @@ import encuesta.Encuesta;
 
 public class Proyecto {
 
-	private String nombreProyecto;
+	private String descripcion;
 	private List<Encuesta> encuestas;
+	private String proposito;
 
-	public Proyecto(String nombre) {  
-		this.nombreProyecto = nombre; 
-		this.encuestas = new ArrayList<Encuesta>();
+	public Proyecto(String unaDescripcion, String unProposito) {
+		proposito = unProposito;
+		descripcion = unaDescripcion;
+		encuestas = new ArrayList<Encuesta>();
 	}
 
-	public String getNombre() {
-		return nombreProyecto;
+	public String descripcion() {
+		return descripcion;
 	}
 	
 	public void agregarEncuesta(Encuesta unaEncuesta) {
@@ -29,6 +31,10 @@ public class Proyecto {
 
 	public Integer cantidadDeEncuestas() {
 		return this.encuestas.size();
+	}
+
+	public String proposito() {
+		return proposito;
 	}
 	
 

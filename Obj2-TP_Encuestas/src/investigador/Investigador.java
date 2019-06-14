@@ -2,6 +2,8 @@ package investigador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
+
 import encuesta.Encuesta;
 import pregunta.Pregunta;
 import proyecto.Proyecto;
@@ -38,4 +40,14 @@ public class Investigador {
 		encuesta.agregarPregunta(pregunta1);
 	}
 
+	public void crearProyecto(String unaDescripcion, String unProposito) {
+		proyectos.add(new Proyecto(unaDescripcion, unProposito));
+	}
+
+	public Boolean tieneProyectos() {
+		return !proyectos.isEmpty();
+	}
+
 }
+
+

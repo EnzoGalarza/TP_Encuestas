@@ -58,6 +58,26 @@ class InvestigadorTestCase {
 	    
 	    assertEquals(pregunta1,encuesta.getPreguntaActual());
 	}
+	@Test
+	void puedeCrearUnProyectoConUnPropositoYUnaDescripcion() {
+		investigador.crearProyecto("Mi proyecto", "Descripcion");
+		
+	assertTrue(investigador.tieneProyectos());
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
