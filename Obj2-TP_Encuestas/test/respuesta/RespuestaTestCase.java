@@ -14,23 +14,23 @@ import static org.mockito.Mockito.*;
 class RespuestaTestCase {
 
 	private Respuesta respuestaLibre, respuestaCerrada;
-	private PreguntaAbierta preguntaAResponderLibre;
-	private PreguntaDeSeleccion preguntaAResponderCerrada;
-	private Workflow workflow;
 	
 	@BeforeEach
 	public void setUp() {
-		workflow = mock(Workflow.class);
-		preguntaAResponderLibre = mock(PreguntaAbierta.class);
-		preguntaAResponderCerrada = mock(PreguntaDeSeleccion.class);
 		respuestaCerrada = new RespuestaCerrada("Mas de 30");
-		respuestaLibre = new RespuestaLibre(preguntaAResponderLibre);
+		respuestaLibre = new RespuestaLibre("Si");
 	}
 	
 	@Test
 	void testUnaRespuestaTieneUnTexto() {
-		assertEquals("", respuestaLibre.getTextoRespuesta());
+		assertEquals("Si", respuestaLibre.getTextoRespuesta());
 		assertEquals("Mas de 30",respuestaCerrada.getTextoRespuesta());
+	}
+	
+	@Test
+	void testLaSiguientePreguntaDeUnaRespuestaLibreEsNula() {
+		Pregunta pregunta = new PreguntaNula();
+		assertTrue(pregunta.getClass().equals(this.respuestaLibre.getSiguientePregunta().getClass()));
 	}
 
 }
