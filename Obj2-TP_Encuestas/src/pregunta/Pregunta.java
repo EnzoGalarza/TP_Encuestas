@@ -19,5 +19,7 @@ public abstract class Pregunta {
 
 	//public abstract void responder(Respuesta respuesta);
 	
+	public abstract Pregunta getSiguientePregunta(Respuesta r);
+	
 }
 	
