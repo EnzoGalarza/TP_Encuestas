@@ -16,12 +16,14 @@ import static org.mockito.Mockito.*;
 class PreguntaDeSeleccionMultipleTestCase {
 
 	private PreguntaDeSeleccionMultiple preguntaSeleccionMultiple;
+	private Pregunta siguientePregunta;
     private RespuestaCerrada respuestaPosible1 ,respuestaPosible2;
     private Set<Respuesta> posiblesRespuestas;
 	
 	@BeforeEach
 	public void setUp() {
 		this.posiblesRespuestas = new HashSet<Respuesta>();
+		this.siguientePregunta = mock(Pregunta.class);
 		respuestaPosible1 = mock(RespuestaCerrada.class);
 		respuestaPosible2 = mock(RespuestaCerrada.class);
 		posiblesRespuestas.add(respuestaPosible1);
@@ -33,6 +35,12 @@ class PreguntaDeSeleccionMultipleTestCase {
 	void testUnaPreguntaDeSeleccionMultipleTieneUnTextoYUnasPosiblesRespuestas(){
 		assertEquals(posiblesRespuestas,preguntaSeleccionMultiple.getPosiblesRespuestas());
 		assertEquals("Cuanto gana por mes?",this.preguntaSeleccionMultiple.getTextoPregunta());
+	}
+	
+	@Test
+	void testUnaPreguntaDeSeleccionMultiplePuedeSetearSuSiguientePregunta() {
+		this.preguntaSeleccionMultiple.setSiguientePregunta(siguientePregunta);
+		assertEquals(siguientePregunta,this.preguntaSeleccionMultiple.getSiguientePregunta(respuestaPosible1));
 	}
 
 }

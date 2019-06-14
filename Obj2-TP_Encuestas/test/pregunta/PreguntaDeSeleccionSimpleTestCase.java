@@ -16,10 +16,12 @@ class PreguntaDeSeleccionSimpleTestCase {
 
 	private PreguntaDeSeleccionSimple pregunta;
 	private RespuestaCerrada respuestaPosible1,respuestaPosible2,respuestaNoPosible;
+	private Pregunta siguientePregunta;
 	private Collection<Respuesta> posiblesRespuestas;
 	
 	@BeforeEach
 	public void setUp() {
+		this.siguientePregunta = mock(Pregunta.class);
 		this.respuestaPosible1 = mock(RespuestaCerrada.class);
 		this.respuestaPosible2 = mock(RespuestaCerrada.class);
 		this.respuestaNoPosible = mock(RespuestaCerrada.class);
@@ -32,6 +34,12 @@ class PreguntaDeSeleccionSimpleTestCase {
 	@Test
 	void testUnaPreguntaDeSeleccionSimpleTieneUnasPosiblesRespuestas() {
 	    assertEquals(posiblesRespuestas,pregunta.getPosiblesRespuestas());
+	}
+	
+	@Test
+	void testUnaPreguntaDeSeleccionSimplePuedeTenerUnaSiguientePregunta() {
+		when(respuestaPosible1.getSiguientePregunta()).thenReturn(siguientePregunta);
+		assertEquals(siguientePregunta,pregunta.getSiguientePregunta(respuestaPosible1));
 	}
 
 }

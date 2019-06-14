@@ -2,6 +2,7 @@ package respuesta;
 
 import pregunta.Pregunta;
 import pregunta.PreguntaDeSeleccionSimple;
+import pregunta.PreguntaNula;
 
 public abstract class Respuesta {
 
@@ -11,8 +12,9 @@ public abstract class Respuesta {
 		return this.textoRespuesta;
 	}
 
-	public Pregunta getSiguientePregunta() {
-		return null;
+	public  Pregunta getSiguientePregunta() {
+		Pregunta pregunta = new PreguntaNula();
+		return pregunta;
 	}
 	
 }

@@ -11,12 +11,15 @@ import static org.mockito.Mockito.*;
 class RespuestaLibreTestCase {
 	
 	private RespuestaLibre respuesta;
-	private PreguntaAbierta preguntaAResponder;
 	
 	@BeforeEach
 	public void setUp() {
-		this.preguntaAResponder = mock(PreguntaAbierta.class);
-		this.respuesta = new RespuestaLibre(preguntaAResponder);
+		this.respuesta = new RespuestaLibre("Hace 1 año");
+	}
+	
+	@Test
+	void testUnaRespuestaAbiertaTieneUnTextoDeRespuesta() {
+		assertEquals("Hace 1 año",respuesta.getTextoRespuesta());
 	}
 	
 }
