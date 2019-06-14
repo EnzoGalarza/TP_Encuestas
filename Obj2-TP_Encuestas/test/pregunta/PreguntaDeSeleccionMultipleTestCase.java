@@ -15,20 +15,24 @@ import static org.mockito.Mockito.*;
 
 class PreguntaDeSeleccionMultipleTestCase {
 
-	private PreguntaDeSeleccionMultiple pregunta;
-    private RespuestaCerrada respuestaPosible1 ,respuestaPosible2, respuestaNoPosible;
-    private Pregunta siguientePregunta;
+	private PreguntaDeSeleccionMultiple preguntaSeleccionMultiple;
+    private RespuestaCerrada respuestaPosible1 ,respuestaPosible2;
+    private Set<Respuesta> posiblesRespuestas;
 	
 	@BeforeEach
 	public void setUp() {
-		Set<Respuesta> posiblesRespuestas = new HashSet<Respuesta>();
-		siguientePregunta = mock(Pregunta.class);
+		this.posiblesRespuestas = new HashSet<Respuesta>();
 		respuestaPosible1 = mock(RespuestaCerrada.class);
 		respuestaPosible2 = mock(RespuestaCerrada.class);
-		respuestaNoPosible = mock(RespuestaCerrada.class);
 		posiblesRespuestas.add(respuestaPosible1);
 		posiblesRespuestas.add(respuestaPosible2);
-		this.pregunta = new PreguntaDeSeleccionMultiple("Cuanto gana por mes",posiblesRespuestas);
+		this.preguntaSeleccionMultiple = new PreguntaDeSeleccionMultiple("Cuanto gana por mes",posiblesRespuestas);
+	}
+	
+	@Test
+	void testUnaPreguntaDeSeleccionMultipleTieneUnTextoYUnasPosiblesRespuestas(){
+		assertEquals(posiblesRespuestas,preguntaSeleccionMultiple.getPosiblesRespuestas());
+		assertEquals("Cuanto gana por mes?",this.preguntaSeleccionMultiple.getTextoPregunta());
 	}
 
 }
