@@ -18,8 +18,8 @@ public class Encuesta {
 		this.cantDeRespuestasLimite = cantDeRespuestasLimite;
 	}
 
-	public void siguiente() {	
-		this.protocolo.siguiente();
+	public void siguiente(Respuesta r) {	
+		this.protocolo.siguiente(r);
 	}
 	
 	public void anterior() {
@@ -32,10 +32,6 @@ public class Encuesta {
 
 	public Boolean finalizada() {
 		return this.cantDeRespuestasLimite == 0;
-	}
-
-	public void agregarPregunta(Pregunta nuevaPregunta) {
-		this.protocolo.agregarPregunta(nuevaPregunta);
 	}
 
 	public Pregunta getPreguntaActual() {
