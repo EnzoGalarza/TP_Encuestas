@@ -52,7 +52,7 @@ class WorkflowTestCase {
 		this.workflow.siguiente(respuesta2);
 		assertEquals(tercerPregunta,workflow.getPregunta());
 		this.workflow.anterior();
-		assertEquals(tercerPregunta,workflow.getPregunta());
+		assertEquals(segundaPregunta,workflow.getPregunta());
 	}
 	
 	@Test
@@ -62,6 +62,13 @@ class WorkflowTestCase {
 		this.workflow.siguiente(respuesta);
 		this.workflow.siguiente(respuesta2);
 		assertEquals(tercerPregunta,workflow.getPregunta());
+	}
+	
+	@Test
+	void testUnWorkflowSinAnteriorNoTienePreguntaAnterior() {
+		assertEquals(preguntaInicial,this.workflow.getPregunta());
+		this.workflow.anterior();
+		assertEquals(preguntaInicial,this.workflow.getPregunta());
 	}
 	
 }
