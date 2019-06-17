@@ -32,57 +32,36 @@ class WorkflowTestCase {
 	}
 	
 	@Test
-	void testAgregarPregunta() {
+	void testPrimerPreguntaWorkflow() {
 		assertEquals(preguntaInicial,this.workflow.getPregunta());
 	}
 	
 	
 	@Test
-	void testUnWorkflowParadoEnLaPrimeraPosicionConMasDeUnaPreguntaTieneUnaPreguntaSiguiente() {
-		this.workflow.agregarPregunta(segundaPregunta);
-		workflow.siguiente();
+	void testUnWorkflowParadoEnLaPrimerPreguntaConMasDeUnaPreguntaTieneUnaSiguientePregunta() {
+		when(preguntaInicial.getSiguientePregunta(respuesta)).thenReturn(segundaPregunta);
+		workflow.siguiente(respuesta);
 		assertEquals(segundaPregunta,workflow.getPregunta());
-		assertEquals(1,this.workflow.posicionPreguntaActual());
 	}
 	
 	@Test
-	void testUnWorkflowEnLaSegundaPosicionOPosteriorTieneUnaPreguntaAnterior() {
-		agregarPreguntasAlProtocolo();
-		
-		this.workflow.siguiente();
-		this.workflow.siguiente();
-		this.workflow.siguiente();
-		assertEquals(ultimaPregunta,workflow.getPregunta());
+	void testUnWorkflowEnLaSegundaPreguntaTieneUnaPreguntaAnterior() {
+		when(preguntaInicial.getSiguientePregunta(respuesta)).thenReturn(segundaPregunta);
+		when(segundaPregunta.getSiguientePregunta(respuesta2)).thenReturn(tercerPregunta);
+		this.workflow.siguiente(respuesta);
+		this.workflow.siguiente(respuesta2);
+		assertEquals(tercerPregunta,workflow.getPregunta());
 		this.workflow.anterior();
 		assertEquals(tercerPregunta,workflow.getPregunta());
-		assertEquals(2,workflow.posicionPreguntaActual());
 	}
 	
 	@Test
 	void testUnWorkflowQueNoContinuaNoTieneUnaPreguntaSiguiente() {
-		this.workflow.agregarPregunta(segundaPregunta);
-		this.workflow.siguiente();
-		this.workflow.siguiente();
-		this.workflow.siguiente();
-		assertEquals(segundaPregunta,workflow.getPregunta());
-		assertFalse(workflow.continua());
-	}
-	
-	@Test
-	void testResponderPreguntaWorkflow() {
-		agregarPreguntasAlProtocolo();
-		this.workflow.responder(respuesta);
-		verify(archivo,times(1)).guardar(preguntaInicial,respuesta);
-		assertTrue(workflow.continua());
-		this.workflow.siguiente();
-		this.workflow.responder(respuesta2);
-		verify(archivo,times(1)).guardar(segundaPregunta, respuesta2);
-	}
-
-	private void agregarPreguntasAlProtocolo() {
-		this.workflow.agregarPregunta(segundaPregunta);
-		this.workflow.agregarPregunta(tercerPregunta);
-		this.workflow.agregarPregunta(ultimaPregunta);
+		when(preguntaInicial.getSiguientePregunta(respuesta)).thenReturn(segundaPregunta);
+		when(segundaPregunta.getSiguientePregunta(respuesta2)).thenReturn(tercerPregunta);
+		this.workflow.siguiente(respuesta);
+		this.workflow.siguiente(respuesta2);
+		assertEquals(tercerPregunta,workflow.getPregunta());
 	}
 	
 }
