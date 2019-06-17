@@ -18,17 +18,17 @@ class EncuestaTestCase {
 	private Encuesta encuestaNoRespondible;
 	private Pregunta primerPreguntaProtocolo;
 	private Pregunta segundaPreguntaProtocolo;
+	private Respuesta respuesta1, respuesta2;
 	
 	@BeforeEach
 	public void setUp() {
+		respuesta1 = mock(Respuesta.class);
+		respuesta2 = mock(Respuesta.class);
 		this.primerPreguntaProtocolo = mock(Pregunta.class);
 		this.segundaPreguntaProtocolo = mock(Pregunta.class);
 		this.protocolo = mock(Workflow.class);
 		this.encuesta = new Encuesta(protocolo,40);
 		this.encuestaNoRespondible = new Encuesta(protocolo,0);
-		
-		//exercise
-		this.encuesta.agregarPregunta(primerPreguntaProtocolo);
 	}
 
 	@Test
@@ -44,11 +44,6 @@ class EncuestaTestCase {
 	}
 	
 	@Test
-	void testUnaEncuestaPuedeAgregarUnaPreguntaASuProtocolo() {
-		verify(protocolo,times(1)).agregarPregunta(primerPreguntaProtocolo);
-	}
-	
-	@Test
 	void testUnaEncuestaMuestraUnaSolaPreguntaQuePuedeMostrar() {
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
 		assertEquals(primerPreguntaProtocolo,this.encuesta.getPreguntaActual());
@@ -56,16 +51,16 @@ class EncuestaTestCase {
 	
 	@Test
 	void testUnaEncuestaConUnaPreguntaSiguientePuedeIrASuSiguientePregunta() {
-		this.encuesta.agregarPregunta(segundaPreguntaProtocolo);
-		this.encuesta.siguiente();
-		verify(protocolo,times(1)).siguiente();
+		when(protocolo.getPregunta()).thenReturn(segundaPreguntaProtocolo);
+		this.encuesta.siguiente(respuesta1);
+		verify(protocolo,times(1)).siguiente(respuesta1);
+		assertEquals(segundaPreguntaProtocolo,encuesta.getPreguntaActual());
 	}
 	
 	@Test
 	void testUnaEncuestaConUnaPreguntaAnteriorPuedeIrASuPreguntaAnterior() {
-		this.encuesta.agregarPregunta(segundaPreguntaProtocolo);
-		this.encuesta.siguiente();
-		verify(protocolo,times(1)).siguiente();
+		this.encuesta.siguiente(respuesta1);
+		verify(protocolo,times(1)).siguiente(respuesta1);
 		this.encuesta.anterior();
 		verify(protocolo,times(1)).anterior();
 	}
