@@ -44,7 +44,7 @@ class EncuestaTestCase {
 	}
 	
 	@Test
-	void testUnaEncuestaMuestraUnaSolaPreguntaQuePuedeMostrar() {
+	void testUnaEncuestaTieneUnaSolaPreguntaQuePuedeMostrar() {
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
 		assertEquals(primerPreguntaProtocolo,this.encuesta.getPreguntaActual());
 	}
@@ -64,5 +64,10 @@ class EncuestaTestCase {
 		this.encuesta.anterior();
 		verify(protocolo,times(1)).anterior();
 	}
+	
+	/*@Test
+	void testResponderPreguntaDeEncuesta() {
+		
+	}*/
 	
 }

@@ -37,6 +37,9 @@ public class Encuesta {
 	public Pregunta getPreguntaActual() {
 		return this.protocolo.getPregunta();
 	}
-
+	
+	public void responder(Respuesta r) {
+		//Aca tiene que hacer lo que les dije y mostre en el UML
+	}
 	
 }
