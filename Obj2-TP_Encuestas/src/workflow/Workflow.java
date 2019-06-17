@@ -27,6 +27,7 @@ public class Workflow {
 
 	public void siguiente(Respuesta r) {
 		if(this.continua()) {
+			this.apilador.apilarPregunta(preguntaActual);
 			this.preguntaActual = this.preguntaActual.getSiguientePregunta(r);
 		}
 	}
