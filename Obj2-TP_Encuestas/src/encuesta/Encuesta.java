@@ -12,6 +12,7 @@ public class Encuesta {
 
 	private Integer cantDeRespuestasLimite;
 	private Workflow protocolo;
+	private EncapsuladorDeRespuesta encapsulador;
 	
 	public Encuesta(Workflow protocolo, Integer cantDeRespuestasLimite) {
 		this.protocolo = protocolo;
@@ -38,8 +39,13 @@ public class Encuesta {
 		return this.protocolo.getPregunta();
 	}
 	
-	public void responder(Respuesta r) {
+	public void responder(Respuesta unaRespuesta) {
 		//Aca tiene que hacer lo que les dije y mostre en el UML
+		encapsulador.agregarRespuestaRealizada(unaRespuesta);
+	}
+
+	public void agregarPregunta(Pregunta unaPregunta) {
+		protocolo.agregarPregunta(unaPregunta);
 	}
 	
 }

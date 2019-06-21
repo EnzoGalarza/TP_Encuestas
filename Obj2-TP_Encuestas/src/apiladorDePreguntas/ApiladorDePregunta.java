@@ -31,5 +31,9 @@ public class ApiladorDePregunta {
 		// TODO Auto-generated method stub
 		this.apilador.remove(pregunta);
 	}
+
+	public Boolean tienePreguntas() {
+		return getCantidadDePreguntas() > 0;
+	}
 	
 }

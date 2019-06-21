@@ -1,8 +1,5 @@
 package workflow;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import apiladorDePreguntas.ApiladorDePregunta;
 import archivo.ArchivoDeRespuestas;
 import pregunta.Pregunta;
@@ -38,9 +35,13 @@ public class Workflow {
 	}
 
 	public void anterior() {
-		if(this.apilador.getCantidadDePreguntas() > 0) {
+		if(this.apilador.tienePreguntas()) {
 			this.preguntaActual = this.apilador.obtenerPregunta();
 		}
+	}
+
+	public void agregarPregunta(Pregunta unaPregunta) {
+		apilador.apilarPregunta(unaPregunta);
 	}
 	
 }
