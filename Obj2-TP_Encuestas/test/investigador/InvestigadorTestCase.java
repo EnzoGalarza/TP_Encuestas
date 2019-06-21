@@ -44,7 +44,7 @@ class InvestigadorTestCase {
 	} 
 
 	@Test
-	void testInvestigadorDefinirEncuesta() {
+	void defineUnaEncuestaAgregandoPreguntas() {
 		when(encuesta.getPreguntaActual()).thenReturn(pregunta1);
 		
 		investigador.agregarPreguntaAEncuesta(encuesta,pregunta1);
