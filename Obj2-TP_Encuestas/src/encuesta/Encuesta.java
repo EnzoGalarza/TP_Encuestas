@@ -1,8 +1,5 @@
 package encuesta;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 import pregunta.Pregunta;
 import respuesta.Respuesta;
@@ -13,14 +10,26 @@ public class Encuesta {
 	private Integer cantDeRespuestasLimite;
 	private Workflow protocolo;
 	private EncapsuladorDeRespuesta encapsulador;
+	private Boolean disponible;
+	private Boolean cerrada;
 	
 	public Encuesta(Workflow protocolo, Integer cantDeRespuestasLimite) {
 		this.protocolo = protocolo;
 		this.cantDeRespuestasLimite = cantDeRespuestasLimite;
+		this.disponible = false;
+		this.cerrada = false;
 	}
 
 	public void siguiente(Respuesta r) {	
 		this.protocolo.siguiente(r);
+	}
+	
+	public void finalizarEdicion() {
+		this.disponible = true;
+	}
+	
+	public void cerrarEncuesta() {
+		this.cerrada = true;
 	}
 	
 	public void anterior() {
@@ -40,8 +49,16 @@ public class Encuesta {
 	}
 	
 	public void responder(Respuesta unaRespuesta) {
-		//Aca tiene que hacer lo que les dije y mostre en el UML
+		
+	  if(this.disponible && !this.cerrada) {	
 		encapsulador.agregarRespuestaRealizada(unaRespuesta);
+	  }	
+	}
+	
+	public void setPregunta(Pregunta pregunta) {
+	  if(!disponible && !cerrada) {
+		this.protocolo.setPregunta(pregunta);
+	  }	
 	}
 	
 }
