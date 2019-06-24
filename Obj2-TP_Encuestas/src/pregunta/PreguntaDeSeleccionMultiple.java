@@ -30,6 +30,12 @@ public class PreguntaDeSeleccionMultiple extends PreguntaDeSeleccion {
 	public void setSiguientePregunta(Pregunta pregunta) {
 		this.siguientePregunta = pregunta;
 	}
+
+	@Override
+	public Boolean esUltimaPregunta() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 }

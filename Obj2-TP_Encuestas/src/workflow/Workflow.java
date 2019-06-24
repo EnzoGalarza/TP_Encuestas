@@ -31,7 +31,7 @@ public class Workflow {
 
 	public Boolean continua() {
 		//Dice si quedan preguntas por responder.
-		return true;
+		return !this.getPregunta().esUltimaPregunta();
 	}
 
 	public void anterior() {
@@ -39,9 +39,9 @@ public class Workflow {
 			this.preguntaActual = this.apilador.obtenerPregunta();
 		}
 	}
-
-	public void agregarPregunta(Pregunta unaPregunta) {
-		apilador.apilarPregunta(unaPregunta);
+	
+	public void setPregunta(Pregunta pregunta) {
+		this.preguntaActual = pregunta;
 	}
 	
 }

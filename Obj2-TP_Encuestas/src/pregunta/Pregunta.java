@@ -21,5 +21,7 @@ public abstract class Pregunta {
 	
 	public abstract Pregunta getSiguientePregunta(Respuesta r);
 	
+	public abstract Boolean esUltimaPregunta();
+	
 }
 	

@@ -36,10 +36,6 @@ public class Investigador {
 		this.proyectos.add(unProyecto);
 	}
 
-	public void agregarPreguntaAEncuesta(Encuesta encuesta, Pregunta pregunta1) {
-		encuesta.agregarPregunta(pregunta1);
-	}
-
 	public void crearProyecto(String unaDescripcion, String unProposito) {
 		proyectos.add(new Proyecto(unaDescripcion, unProposito));
 	}

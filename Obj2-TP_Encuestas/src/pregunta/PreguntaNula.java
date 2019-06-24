@@ -18,5 +18,11 @@ public class PreguntaNula extends Pregunta {
 		// TODO Auto-generated method stub
 		return this;
 	}
+
+	@Override
+	public Boolean esUltimaPregunta() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }

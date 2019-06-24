@@ -21,5 +21,11 @@ public class PreguntaAbierta extends Pregunta {
 	public void setSiguientePregunta(Pregunta pregunta) {
 		this.siguientePregunta = pregunta;
 	}
+
+	@Override
+	public Boolean esUltimaPregunta() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

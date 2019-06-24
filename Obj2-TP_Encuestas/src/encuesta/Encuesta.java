@@ -43,9 +43,5 @@ public class Encuesta {
 		//Aca tiene que hacer lo que les dije y mostre en el UML
 		encapsulador.agregarRespuestaRealizada(unaRespuesta);
 	}
-
-	public void agregarPregunta(Pregunta unaPregunta) {
-		protocolo.agregarPregunta(unaPregunta);
-	}
 	
 }

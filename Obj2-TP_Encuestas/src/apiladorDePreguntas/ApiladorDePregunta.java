@@ -33,7 +33,7 @@ public class ApiladorDePregunta {
 	}
 
 	public Boolean tienePreguntas() {
-		return getCantidadDePreguntas() > 0;
+		return !this.apilador.empty();
 	}
 	
 }

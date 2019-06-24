@@ -49,5 +49,11 @@ public class PreguntaDeSeleccionSimple extends PreguntaDeSeleccion {
 		// TODO Auto-generated method stub
 		return respuesta.getSiguientePregunta();
 	}
+
+	@Override
+	public Boolean esUltimaPregunta() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
