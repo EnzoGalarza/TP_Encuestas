@@ -71,4 +71,10 @@ class WorkflowTestCase {
 		assertEquals(preguntaInicial,this.workflow.getPregunta());
 	}
 	
+	@Test
+	void testUnWorkflowPuedeCambiarSuPregunta() {
+		this.workflow.setPregunta(segundaPregunta);
+		assertEquals(workflow.getPregunta(),segundaPregunta);
+	}
+	
 }

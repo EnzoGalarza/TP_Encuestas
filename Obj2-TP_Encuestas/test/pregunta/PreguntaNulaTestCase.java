@@ -16,6 +16,7 @@ class PreguntaNulaTestCase {
 		pregunta = new PreguntaNula();
 		assertEquals("Pregunta nula",this.pregunta.getTextoPregunta());
 		assertEquals(this.pregunta,this.pregunta.getSiguientePregunta(respuesta));
+		assertTrue(this.pregunta.esUltimaPregunta());
 	}
 
 }

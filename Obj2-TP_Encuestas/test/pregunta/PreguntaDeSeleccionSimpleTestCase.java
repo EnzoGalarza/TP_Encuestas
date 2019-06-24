@@ -41,5 +41,10 @@ class PreguntaDeSeleccionSimpleTestCase {
 		when(respuestaPosible1.getSiguientePregunta()).thenReturn(siguientePregunta);
 		assertEquals(siguientePregunta,pregunta.getSiguientePregunta(respuestaPosible1));
 	}
+	
+	@Test
+	void testUnaPreguntaDeSeleccionSimpleNoEsUnaPreguntaNula() {
+		assertFalse(this.pregunta.esUltimaPregunta());
+	}
 
 }

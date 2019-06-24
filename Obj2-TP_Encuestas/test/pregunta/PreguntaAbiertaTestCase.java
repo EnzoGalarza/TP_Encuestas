@@ -33,4 +33,9 @@ class PreguntaAbiertaTestCase {
 		assertEquals(preguntaSiguiente,pregunta.getSiguientePregunta(respuesta));
 	}
 	
+	@Test
+	void testUnaPreguntaAbiertaNoEsUnaPreguntaNula() {
+	    assertFalse(this.pregunta.esUltimaPregunta());
+	}
+	
 }

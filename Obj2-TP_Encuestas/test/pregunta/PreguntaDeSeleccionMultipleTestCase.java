@@ -42,5 +42,10 @@ class PreguntaDeSeleccionMultipleTestCase {
 		this.preguntaSeleccionMultiple.setSiguientePregunta(siguientePregunta);
 		assertEquals(siguientePregunta,this.preguntaSeleccionMultiple.getSiguientePregunta(respuestaPosible1));
 	}
+	
+	@Test
+	void testUnaPreguntaDeSeleccionMultipleNoEsUnaPreguntaNula() {
+		assertFalse(this.preguntaSeleccionMultiple.esUltimaPregunta());
+	}
 
 }

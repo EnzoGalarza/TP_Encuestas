@@ -45,18 +45,7 @@ class InvestigadorTestCase {
 
 	@Test
 	void defineUnaEncuestaAgregandoPreguntas() {
-		when(encuesta.getPreguntaActual()).thenReturn(pregunta1);
 		
-		investigador.agregarPreguntaAEncuesta(encuesta,pregunta1);
-	    investigador.agregarPreguntaAEncuesta(encuesta, pregunta2);
-	    investigador.agregarPreguntaAEncuesta(encuesta, pregunta3);
-	    
-	    
-	    verify(encuesta).agregarPregunta(pregunta1);
-	    verify(encuesta).agregarPregunta(pregunta2);
-	    verify(encuesta).agregarPregunta(pregunta3);
-	    
-	    assertEquals(pregunta1,encuesta.getPreguntaActual());
 	}
 	@Test
 	void puedeCrearUnProyectoConUnPropositoYUnaDescripcion() {
