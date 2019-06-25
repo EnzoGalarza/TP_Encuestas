@@ -1,11 +1,13 @@
 package encuesta;
 
 
+import observer.Observado;
+import observer.Observador;
 import pregunta.Pregunta;
 import respuesta.Respuesta;
 import workflow.Workflow;
 
-public class Encuesta { 
+public class Encuesta extends Observado{ 
 
 	private Integer cantDeRespuestasLimite;
 	private Workflow protocolo;
@@ -52,6 +54,7 @@ public class Encuesta {
 		
 	  if(this.disponible && !this.cerrada) {	
 		encapsulador.agregarRespuestaRealizada(unaRespuesta);
+		this.notify(this.getPreguntaActual(), unaRespuesta);
 	  }	
 	}
 	
@@ -59,6 +62,14 @@ public class Encuesta {
 	  if(!disponible && !cerrada) {
 		this.protocolo.setPregunta(pregunta);
 	  }	
+	}
+
+	@Override
+	public void notify(Pregunta p, Respuesta r) {
+		// TODO Auto-generated method stub
+		for(Observador o : this.observadores) {
+			o.update(this, p, r);
+		}
 	}
 	
 }
