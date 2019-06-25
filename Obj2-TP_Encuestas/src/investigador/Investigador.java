@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 import encuesta.Encuesta;
+import observer.Observador;
 import pregunta.Pregunta;
 import proyecto.Proyecto;
+import respuesta.Respuesta;
 
-public class Investigador {
+public class Investigador implements Observador{
 
 	private String user;
 	private String password;
@@ -42,6 +44,11 @@ public class Investigador {
 
 	public Boolean tieneProyectos() {
 		return !proyectos.isEmpty();
+	}
+
+	@Override
+	public void update(Encuesta e, Pregunta p, Respuesta r) {
+		//Hacer algo??
 	}
 
 }
