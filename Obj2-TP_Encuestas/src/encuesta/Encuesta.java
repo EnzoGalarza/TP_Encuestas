@@ -9,17 +9,18 @@ import workflow.Workflow;
 
 public class Encuesta extends Observado{ 
 
-	private Integer cantDeRespuestasLimite;
+	private Integer cantDeRespuestasEsperada;
 	private Workflow protocolo;
 	private EncapsuladorDeRespuesta encapsulador;
 	private Boolean disponible;
 	private Boolean cerrada;
 	
-	public Encuesta(Workflow protocolo, Integer cantDeRespuestasLimite) {
+	public Encuesta(Workflow protocolo, Integer cantDeRespuestasEsperada) {
 		this.protocolo = protocolo;
-		this.cantDeRespuestasLimite = cantDeRespuestasLimite;
+		this.cantDeRespuestasEsperada = cantDeRespuestasEsperada;
 		this.disponible = false;
 		this.cerrada = false;
+		this.encapsulador = new EncapsuladorDeRespuesta();
 	}
 
 	public void siguiente(Respuesta r) {	
@@ -39,11 +40,11 @@ public class Encuesta extends Observado{
 	}
 
 	public Integer getCantidadDeRespuestasLimite() {
-		return this.cantDeRespuestasLimite;
+		return this.cantDeRespuestasEsperada;
 	}
 
 	public Boolean finalizada() {
-		return this.cantDeRespuestasLimite == 0;
+		return this.cerrada;
 	}
 
 	public Pregunta getPreguntaActual() {
@@ -53,7 +54,7 @@ public class Encuesta extends Observado{
 	public void responder(Respuesta unaRespuesta) {
 		
 	  if(this.disponible && !this.cerrada) {	
-		encapsulador.agregarRespuestaRealizada(unaRespuesta);
+		encapsulador.agregarRespuestaRealizada(this.getPreguntaActual(),unaRespuesta);
 		this.notify(this.getPreguntaActual(), unaRespuesta);
 	  }	
 	}
@@ -70,6 +71,11 @@ public class Encuesta extends Observado{
 		for(Observador o : this.observadores) {
 			o.update(this, p, r);
 		}
+	}
+	
+	public void guardarCambios() {
+	  if(this.getPreguntaActual().esUltimaPregunta())	
+		this.encapsulador.nuevaSesion();
 	}
 	
 }
