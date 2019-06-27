@@ -58,7 +58,8 @@ class ProyectoTestCase {
 		proyecto1.agregarSubProyecto(proyecto3);
 		proyecto1.agregarSubProyecto(proyecto4);
 		proyecto2.agregarSubProyecto(proyecto1);
-		proyecto4.agregarSubProyecto(proyecto1);
+		
+		proyecto4.agregarSubProyecto(proyecto1); // No se puede agregar
 		
 		List<Proyecto> subProyectos2 = new ArrayList<Proyecto>(); //esto es una lista vacia de subproyectos
 		
