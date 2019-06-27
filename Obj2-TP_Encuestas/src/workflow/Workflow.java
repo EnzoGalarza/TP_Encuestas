@@ -6,14 +6,12 @@ import pregunta.Pregunta;
 import respuesta.Respuesta;
 
 public class Workflow {
-
-	private ArchivoDeRespuestas archivo;
+	
 	private Pregunta preguntaActual;
 	private ApiladorDePregunta apilador;
 	
-	public Workflow(ArchivoDeRespuestas archivo,Pregunta preguntaInicial) {
+	public Workflow(Pregunta preguntaInicial) {
 		this.preguntaActual = preguntaInicial;
-		this.archivo = archivo;
 		this.apilador = new ApiladorDePregunta();
 	}
 

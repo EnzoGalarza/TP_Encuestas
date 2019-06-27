@@ -16,19 +16,18 @@ class WorkflowTestCase {
 
 	private Workflow workflow;
 	private Pregunta preguntaInicial,segundaPregunta,tercerPregunta ,ultimaPregunta;
-	private ArchivoDeRespuestas archivo;
-	private Respuesta respuesta,respuesta2;
+	private Respuesta respuesta,respuesta2, respuesta3;
 	
 	@BeforeEach
 	public void setUp() {
-		this.archivo = mock(ArchivoDeRespuestas.class);
 		this.preguntaInicial = mock(Pregunta.class);
 		this.segundaPregunta = mock(Pregunta.class);
 		this.tercerPregunta = mock(Pregunta.class);
 		this.ultimaPregunta = mock(Pregunta.class);
 		this.respuesta = mock(Respuesta.class);
 		this.respuesta2 = mock(Respuesta.class);
-		this.workflow = new Workflow(archivo,preguntaInicial);
+		this.respuesta3 = mock(Respuesta.class);
+		this.workflow = new Workflow(preguntaInicial);
 	}
 	
 	@Test
@@ -59,9 +58,15 @@ class WorkflowTestCase {
 	void testUnWorkflowQueNoContinuaNoTieneUnaPreguntaSiguiente() {
 		when(preguntaInicial.getSiguientePregunta(respuesta)).thenReturn(segundaPregunta);
 		when(segundaPregunta.getSiguientePregunta(respuesta2)).thenReturn(tercerPregunta);
+		when(tercerPregunta.getSiguientePregunta(respuesta3)).thenReturn(ultimaPregunta);
+		when(ultimaPregunta.esUltimaPregunta()).thenReturn(true);
 		this.workflow.siguiente(respuesta);
 		this.workflow.siguiente(respuesta2);
-		assertEquals(tercerPregunta,workflow.getPregunta());
+		this.workflow.siguiente(respuesta3);
+		assertEquals(ultimaPregunta,workflow.getPregunta());
+		assertFalse(workflow.continua());
+		this.workflow.siguiente(respuesta3);
+		assertEquals(ultimaPregunta,workflow.getPregunta());
 	}
 	
 	@Test
