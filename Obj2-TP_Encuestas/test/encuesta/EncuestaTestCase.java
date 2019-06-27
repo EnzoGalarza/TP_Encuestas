@@ -33,18 +33,15 @@ class EncuestaTestCase {
 		this.protocolo = mock(Workflow.class);
 		this.encuesta = new Encuesta(protocolo,40);
 		this.encuestaNoRespondible = new Encuesta(protocolo,0);
+		this.encuestaNoRespondible.cerrarEncuesta();
+		this.encuesta.register(observador1);
+		this.encuesta.register(observador2);
 	}
 
 	@Test
 	void testUnaEncuestaNaceConUnaCantidadDeRespuestasComoProposito() {
 		assertEquals(40,this.encuesta.getCantidadDeRespuestasLimite());
 		assertEquals(0,this.encuestaNoRespondible.getCantidadDeRespuestasLimite());
-	}
-	
-	@Test
-	void testUnaEncuestaConUnTotalDeRespuestasEsperadasCumplidoNoSePuedeResponder() {
-		assertTrue(this.encuestaNoRespondible.finalizada());
-		assertFalse(this.encuesta.finalizada());
 	}
 	
 	@Test
@@ -71,16 +68,43 @@ class EncuestaTestCase {
 	
 	@Test
 	void testNotifyObservadores() {
-		this.encuesta.register(observador1);
-		this.encuesta.register(observador2);
 		this.encuesta.notify(primerPreguntaProtocolo, respuesta1);
 		verify(observador1).update(encuesta, primerPreguntaProtocolo, respuesta1);
 		verify(observador2).update(encuesta, primerPreguntaProtocolo, respuesta1);
 	}
 	
-	/*@Test
-	void testResponderPreguntaDeEncuesta() {
-		
-	}*/
+	@Test
+	void testUnaEncuestaNoDisponibleSePuedeModificar() {
+		assertFalse(this.encuesta.disponible());
+		this.encuesta.setPregunta(segundaPreguntaProtocolo);
+		verify(protocolo,times(1)).setPregunta(segundaPreguntaProtocolo);
+	}
+	
+	@Test
+	void testUnaEncuestaDisponibleNoSePuedeModificar() {
+		this.encuesta.finalizarEdicion();
+		this.encuesta.setPregunta(primerPreguntaProtocolo);
+		assertTrue(this.encuesta.disponible());
+		verifyZeroInteractions(protocolo);
+	}
+	
+	@Test
+	void testUnaEncuestaDisponibleSePuedeResponder() {
+		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
+		this.encuesta.finalizarEdicion();
+		assertTrue(this.encuesta.disponible());
+		this.encuesta.responder(respuesta2);
+		verify(protocolo,times(1)).siguiente(respuesta2);
+		verify(observador1).update(encuesta, primerPreguntaProtocolo, respuesta2);
+		verify(observador2).update(encuesta, primerPreguntaProtocolo, respuesta2);
+	}
+	
+	@Test
+	void testUnaEncuestaCerradaNoSePuedeResponder() {
+	     this.encuesta.cerrarEncuesta();
+	     assertTrue(this.encuesta.finalizada());
+	     this.encuesta.responder(respuesta1);
+	     verifyZeroInteractions(protocolo);
+	}
 	
 }

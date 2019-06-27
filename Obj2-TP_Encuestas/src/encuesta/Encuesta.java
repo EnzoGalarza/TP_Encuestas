@@ -1,6 +1,8 @@
 package encuesta;
 
 
+import java.util.function.BooleanSupplier;
+
 import observer.Observado;
 import observer.Observador;
 import pregunta.Pregunta;
@@ -56,6 +58,7 @@ public class Encuesta extends Observado{
 	  if(this.disponible && !this.cerrada) {	
 		encapsulador.agregarRespuestaRealizada(this.getPreguntaActual(),unaRespuesta);
 		this.notify(this.getPreguntaActual(), unaRespuesta);
+		this.siguiente(unaRespuesta);
 	  }	
 	}
 	
@@ -74,8 +77,14 @@ public class Encuesta extends Observado{
 	}
 	
 	public void guardarCambios() {
-	  if(this.getPreguntaActual().esUltimaPregunta())	
+	  if(this.getPreguntaActual().esUltimaPregunta()) {	
 		this.encapsulador.nuevaSesion();
+		this.cantDeRespuestasEsperada++;
+	  }	
+	}
+
+	public Boolean disponible() {
+		return this.disponible;
 	}
 	
 }
