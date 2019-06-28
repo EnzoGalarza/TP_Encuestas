@@ -13,7 +13,8 @@ import proyecto.Proyecto;
 
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.util.List; 
 
 class InvestigadorTestCase {
 
@@ -49,19 +50,26 @@ class InvestigadorTestCase {
 	}
 	
 	@Test
+	void testProyectosInvestigador() {
+		List<Proyecto> proyectosInv = new ArrayList<Proyecto>();
+		proyectosInv.add(proyecto1);
+		assertEquals(proyectosInv,this.investigador.getProyectos());
+	}
+	
+	@Test
 	void creaUnaEncuestaEnUnProyecto() {
-		investigador.crearEncuesta(proyecto1);
+		investigador.crearEncuesta(proyecto1,38);
 		
 		assertEquals(1,investigador.cantidadDeEncuestasEn(proyecto1));
 	}
 
 	@Test
 	void defineUnaEncuestaAgregandoPreguntas() {
-		
-		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1);
+		//when(encuesta.getPreguntaActual()).thenReturn(pregunta1);
+		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1,32);
 		investigador.agregarPreguntaEn(proyecto1, encuestaCreada, pregunta1);
 		
-		assertEquals(pregunta1,investigador.getEncuesta(proyecto1, encuesta).getPreguntaActual());
+		assertEquals(pregunta1,investigador.getEncuesta(proyecto1, encuestaCreada).getPreguntaActual());
 	}
 	
 	

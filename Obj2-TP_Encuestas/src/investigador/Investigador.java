@@ -57,10 +57,9 @@ public class Investigador implements Observador{
 		//Hacer algo??
 	}
 
-	public Encuesta crearEncuesta(Proyecto proyecto1) {
-		Workflow workflow = new Workflow(new ArchivoDeRespuestas(), new PreguntaNula());
-		Integer cantidadDePreguntas =  0;
-		Encuesta unaEncuesta = new Encuesta(workflow, cantidadDePreguntas, LocalDate.of(2019, Month.JULY, 1));
+	public Encuesta crearEncuesta(Proyecto proyecto1, Integer cantRespuestasCompletasEsperadas) {
+		Workflow workflow = new Workflow(new PreguntaNula());
+		Encuesta unaEncuesta = new Encuesta(workflow, cantRespuestasCompletasEsperadas, LocalDate.of(2019, Month.JULY, 1));
 		
 		proyecto1.agregarEncuesta(unaEncuesta);
 		return unaEncuesta;
