@@ -64,6 +64,9 @@ public class Encuesta extends Observado{
 	
 	public void responder(Respuesta unaRespuesta) {
 		// Responde la pregunta actual si es posibleResponder
+		estadoDeEncuesta();
+		
+		
 	  if(this.disponible && !this.cerrada) {	
 		encapsulador.agregarRespuestaRealizada(this.getPreguntaActual(),unaRespuesta);
 		this.notify(this.getPreguntaActual(), unaRespuesta);
@@ -71,6 +74,11 @@ public class Encuesta extends Observado{
 	  }	
 	}
 	
+	private EstadoDeEncuesta estadoDeEncuesta() {
+		return new EstadoDeEncuestaDisponible();
+		
+	}
+
 	public void setPregunta(Pregunta pregunta) {
 		// Cambia la pregunta del workflow si es Posible
 	  if(!disponible && !cerrada) {
@@ -89,15 +97,18 @@ public class Encuesta extends Observado{
 	public void guardarCambios() {
 		// Si se respondio a todas las preguntas cambia la sesion de su encapsulador
 		// las respuestas y decrementando en 1 las respuestas limites
-	  if(!this.finalizada() && this.getPreguntaActual().esUltimaPregunta()) {	
+		
+		
+		/*
+		if(!this.finalizada() && this.getPreguntaActual().esUltimaPregunta()) {	
 		this.encapsulador.nuevaSesion();
 		if(this.cantDeRespuestasEsperada > 1) {
 		 this.cantDeRespuestasEsperada--;
 		}else {
 			this.cerrarEncuesta();
 		}
+		*/
 		
-	  }
 	  
 	}
 
@@ -113,6 +124,18 @@ public class Encuesta extends Observado{
 	public Integer cantidadDeRespuestasCompletas() {
 		// Retorna la cantidad de formularios de esta encuesta completos
 		return this.encapsulador.cantidadDeFormulariosCompletos();
+	}
+
+	public EncapsuladorDeRespuesta encapsulador() {
+		return encapsulador;
+	}
+
+	public void actualizarCantidadDeRespuestasEsperada() {
+		if(this.cantDeRespuestasEsperada > 1) {
+			 this.cantDeRespuestasEsperada--;
+			}else {
+				this.cerrarEncuesta();
+			}
 	}
 	
 }
