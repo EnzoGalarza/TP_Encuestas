@@ -12,16 +12,18 @@ public abstract class Pregunta {
 	}
 
 
-	public Boolean esPreguntaSeleccionSimple() {
+	/*public Boolean esPreguntaSeleccionSimple() {
 		// TODO Auto-generated method stub
 		return false;
-	}
+	}*/
 
 	//public abstract void responder(Respuesta respuesta);
 	
 	public abstract Pregunta getSiguientePregunta(Respuesta r);
 	
-	public abstract Boolean esUltimaPregunta();
+	public  Boolean esUltimaPregunta() {
+		return false;
+	}
 	
 }
 	

@@ -26,10 +26,4 @@ class PreguntaTestCase {
 		assertEquals("De que color es?",preguntaAbierta.getTextoPregunta());
 		assertEquals("De que color te gustaria?",preguntaSeleccionSimple.getTextoPregunta());
 	}
-	
-	@Test
-	void testUnaPreguntaSabeSiEsDeSeleccionSimpleONo() {
-		assertFalse(this.preguntaAbierta.esPreguntaSeleccionSimple());
-		assertTrue(this.preguntaSeleccionSimple.esPreguntaSeleccionSimple());
-	}
 }
