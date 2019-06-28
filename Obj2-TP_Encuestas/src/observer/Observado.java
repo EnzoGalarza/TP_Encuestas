@@ -11,10 +11,12 @@ public abstract class Observado {
 	protected List<Observador> observadores = new ArrayList<Observador>();
 	
 	public void register(Observador o) {
+		// agrega un observador a su lista de observadores
 		this.observadores.add(o);
 	}
 	
 	public void unregister(Observador o) {
+		// elimina un observador de su lista de observadores
 		this.observadores.remove(o);
 	}
 	

@@ -18,10 +18,12 @@ public class EncapsuladorDeRespuesta {
 	}
 	
 	public void agregarRespuestaRealizada(Pregunta pregunta, Respuesta unaRespuesta) {
+		// Agrega al archivador actual una pregunta con su respuesta
 		this.sesionActual.guardar(pregunta, unaRespuesta);
 	}
 
 	public void nuevaSesion() {
+		// Crea un nuevoArchivador guardando al anterior
 		this.sesiones.add(sesionActual);
 		this.sesionActual = new ArchivoDeRespuestas();
 	}

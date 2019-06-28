@@ -13,26 +13,27 @@ public class ApiladorDePregunta {
 	}
 
 	public void apilarPregunta(Pregunta pregunta) {
-		// TODO Auto-generated method stub
+		// Agrega una Pregunta al stack
 		this.apilador.push(pregunta);
 	}
 
 	public Integer getCantidadDePreguntas() {
-		// TODO Auto-generated method stub
+		// Retorna la cantidadDePreguntas del stack
 		return this.apilador.size();
 	}
 
 	public Pregunta obtenerPregunta() {
-		// TODO Auto-generated method stub
+		// Saca y retorna la ultima pregunta en entrar al stack
 		return this.apilador.pop();
 	}
 
 	public void removerPregunta(Pregunta pregunta) {
-		// TODO Auto-generated method stub
+		// Saca una pregunta del stack
 		this.apilador.remove(pregunta);
 	}
 
 	public Boolean tienePreguntas() {
+		// Retorna si el stack tiene alguna pregunta
 		return !this.apilador.empty();
 	}
 	

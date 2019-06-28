@@ -14,18 +14,13 @@ public class PreguntaAbierta extends Pregunta {
 
 	@Override
 	public Pregunta getSiguientePregunta(Respuesta respuesta) {
-		// TODO Auto-generated method stub
+		// retorna su siguiente pregunta
 		return this.siguientePregunta;
 	}
 	
 	public void setSiguientePregunta(Pregunta pregunta) {
+		// cambia su siguiente pregunta
 		this.siguientePregunta = pregunta;
-	}
-
-	@Override
-	public Boolean esUltimaPregunta() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 }
