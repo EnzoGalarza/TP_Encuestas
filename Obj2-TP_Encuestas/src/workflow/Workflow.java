@@ -6,12 +6,14 @@ import pregunta.Pregunta;
 import respuesta.Respuesta;
 
 public class Workflow {
-	
+
+	private ArchivoDeRespuestas archivo;
 	private Pregunta preguntaActual;
 	private ApiladorDePregunta apilador;
 	
-	public Workflow(Pregunta preguntaInicial) {
+	public Workflow(ArchivoDeRespuestas archivo,Pregunta preguntaInicial) {
 		this.preguntaActual = preguntaInicial;
+		this.archivo = archivo;
 		this.apilador = new ApiladorDePregunta();
 	}
 
@@ -20,10 +22,10 @@ public class Workflow {
 		return this.preguntaActual;
 	}
 
-	public void siguiente(Respuesta r) {
+	public void siguiente(Respuesta respuesta) {
 		if(this.continua()) {
 			this.apilador.apilarPregunta(preguntaActual);
-			this.preguntaActual = this.preguntaActual.getSiguientePregunta(r);
+			this.preguntaActual = this.preguntaActual.getSiguientePregunta(respuesta);
 		}
 	}
 

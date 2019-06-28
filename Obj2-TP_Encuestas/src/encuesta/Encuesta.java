@@ -1,6 +1,7 @@
 package encuesta;
 
 
+import java.time.LocalDate;
 import java.util.function.BooleanSupplier;
 
 import observer.Observado;
@@ -16,13 +17,15 @@ public class Encuesta extends Observado{
 	private EncapsuladorDeRespuesta encapsulador;
 	private Boolean disponible;
 	private Boolean cerrada;
+	private LocalDate fechaDeCreacion;
 	
-	public Encuesta(Workflow protocolo, Integer cantDeRespuestasEsperada) {
+	public Encuesta(Workflow protocolo, Integer cantDeRespuestasEsperada, LocalDate localDate) {
 		this.protocolo = protocolo;
 		this.cantDeRespuestasEsperada = cantDeRespuestasEsperada;
 		this.disponible = false;
 		this.cerrada = false;
 		this.encapsulador = new EncapsuladorDeRespuesta();
+		this.fechaDeCreacion = localDate;
 	}
 
 	public void siguiente(Respuesta r) {	
@@ -70,7 +73,6 @@ public class Encuesta extends Observado{
 
 	@Override
 	public void notify(Pregunta p, Respuesta r) {
-		// TODO Auto-generated method stub
 		for(Observador o : this.observadores) {
 			o.update(this, p, r);
 		}
@@ -85,6 +87,10 @@ public class Encuesta extends Observado{
 
 	public Boolean disponible() {
 		return this.disponible;
+	}
+
+	public LocalDate fechaDeCreacion() {
+		return fechaDeCreacion;
 	}
 	
 }

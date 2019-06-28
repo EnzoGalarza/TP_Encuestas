@@ -12,6 +12,9 @@ import workflow.Workflow;
 
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 class EncuestaTestCase {
 
 	private Encuesta encuesta;
@@ -31,8 +34,8 @@ class EncuestaTestCase {
 		this.primerPreguntaProtocolo = mock(Pregunta.class);
 		this.segundaPreguntaProtocolo = mock(Pregunta.class);
 		this.protocolo = mock(Workflow.class);
-		this.encuesta = new Encuesta(protocolo,40);
-		this.encuestaNoRespondible = new Encuesta(protocolo,0);
+		this.encuesta = new Encuesta(protocolo,40, LocalDate.of(2019, Month.JUNE, 1));
+		this.encuestaNoRespondible = new Encuesta(protocolo,0, LocalDate.of(2019, Month.JUNE, 1));
 		this.encuestaNoRespondible.cerrarEncuesta();
 		this.encuesta.register(observador1);
 		this.encuesta.register(observador2);
@@ -105,6 +108,11 @@ class EncuestaTestCase {
 	     assertTrue(this.encuesta.finalizada());
 	     this.encuesta.responder(respuesta1);
 	     verifyZeroInteractions(protocolo);
+	}
+	
+	@Test
+	void seCreaConUnaFecha() {
+	     assertEquals(encuesta.fechaDeCreacion(),LocalDate.of(2019, Month.JUNE, 1));
 	}
 	
 }

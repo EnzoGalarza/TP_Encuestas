@@ -8,9 +8,12 @@ import org.junit.jupiter.api.Test;
 import encuesta.Encuesta;
 import investigador.Investigador;
 import pregunta.Pregunta;
+import pregunta.PreguntaDeSeleccionSimple;
 import proyecto.Proyecto;
 
-import static org.mockito.Mockito.*; 
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList; 
 
 class InvestigadorTestCase {
 
@@ -23,9 +26,9 @@ class InvestigadorTestCase {
 	
 	@BeforeEach 
 	public void setUp() {
-		proyecto1 = mock(Proyecto.class);
+		proyecto1 = new Proyecto("descripcion", "proposito");
 		encuesta = mock(Encuesta.class);
-		pregunta1 = mock(Pregunta.class);
+		pregunta1 = new PreguntaDeSeleccionSimple("Viaja en tren", new ArrayList<>());
 		pregunta2 = mock(Pregunta.class);
 		pregunta3 = mock(Pregunta.class);
 		investigador = new Investigador("Luca","12345");
@@ -37,22 +40,30 @@ class InvestigadorTestCase {
 		assertEquals("Luca", investigador.getUser());
 		assertEquals("12345", investigador.getPassword()); 
 	}
-
+	
 	@Test
-	void testAgregarProyecto() {
-		assertEquals(1,investigador.getProyectos().size());
-	} 
+	void puedeCrearUnProyectoConUnPropositoYUnaDescripcion() {
+	investigador.crearProyecto("Mi proyecto", "Descripcion");
+		
+	assertTrue(investigador.tieneProyectos());
+	}
+	
+	@Test
+	void creaUnaEncuestaEnUnProyecto() {
+		investigador.crearEncuesta(proyecto1);
+		
+		assertEquals(1,investigador.cantidadDeEncuestasEn(proyecto1));
+	}
 
 	@Test
 	void defineUnaEncuestaAgregandoPreguntas() {
 		
-	}
-	@Test
-	void puedeCrearUnProyectoConUnPropositoYUnaDescripcion() {
-		investigador.crearProyecto("Mi proyecto", "Descripcion");
+		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1);
+		investigador.agregarPreguntaEn(proyecto1, encuestaCreada, pregunta1);
 		
-	assertTrue(investigador.tieneProyectos());
+		assertEquals(pregunta1,investigador.getEncuesta(proyecto1, encuesta).getPreguntaActual());
 	}
+	
 	
 	
 
