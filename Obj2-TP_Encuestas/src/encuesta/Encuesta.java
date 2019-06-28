@@ -77,10 +77,10 @@ public class Encuesta extends Observado{
 	}
 	
 	public void guardarCambios() {
-	  if(this.getPreguntaActual().esUltimaPregunta()) {	
+	  if(this.cantDeRespuestasEsperada > 0 && this.getPreguntaActual().esUltimaPregunta()) {	
 		this.encapsulador.nuevaSesion();
-		this.cantDeRespuestasEsperada++;
-	  }	
+		this.cantDeRespuestasEsperada--;
+	  }
 	}
 
 	public Boolean disponible() {

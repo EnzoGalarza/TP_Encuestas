@@ -100,11 +100,32 @@ class EncuestaTestCase {
 	}
 	
 	@Test
-	void testUnaEncuestaCerradaNoSePuedeResponder() {
+	void testUnaEncuestaCerradaNoSePuedeResponderNiModificar() {
 	     this.encuesta.cerrarEncuesta();
 	     assertTrue(this.encuesta.finalizada());
 	     this.encuesta.responder(respuesta1);
+	     this.encuesta.setPregunta(segundaPreguntaProtocolo);
 	     verifyZeroInteractions(protocolo);
+	}
+	
+	@Test
+	void testGuardarCambiosEnUltimaPreguntaEncuesta() {
+		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
+		when(primerPreguntaProtocolo.esUltimaPregunta()).thenReturn(true);
+		this.encuesta.guardarCambios();
+		
+		// verifico que se cambia La cantidadDeRespuestaLimiteAlCuestionario
+		assertEquals(39,this.encuesta.getCantidadDeRespuestasLimite());
+	}
+	
+	@Test
+	void testUnaEncuestaNoPuedeGuardarLosCambiosSiNoEstaEnLaUltimaPreguntaOSiNoSePuedeResponder() {
+		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
+		when(primerPreguntaProtocolo.esUltimaPregunta()).thenReturn(false);
+		
+		this.encuesta.guardarCambios();
+		// verifico que no se cambia La cantidadDeRespuestaLimiteAlCuestionario
+		assertEquals(40,this.encuesta.getCantidadDeRespuestasLimite());
 	}
 	
 }
