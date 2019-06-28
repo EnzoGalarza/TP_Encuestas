@@ -14,19 +14,11 @@ public class PreguntaDeSeleccionSimple extends PreguntaDeSeleccion {
 		super(posiblesRespuestas);
 		this.textoPregunta = textoPregunta;
 	}
-
 	
-
 	@Override
 	public Pregunta getSiguientePregunta(Respuesta respuesta) {
 		// TODO Auto-generated method stub
 		return respuesta.getSiguientePregunta();
-	}
-
-	@Override
-	public Boolean esUltimaPregunta() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 }

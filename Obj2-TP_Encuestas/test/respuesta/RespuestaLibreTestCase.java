@@ -22,4 +22,10 @@ class RespuestaLibreTestCase {
 		assertEquals("Hace 1 año",respuesta.getTextoRespuesta());
 	}
 	
+	@Test
+	void testSetTextoRespuesta() {
+		this.respuesta.setTextoRespuesta("Hace 2 años");
+		assertEquals("Hace 2 años",this.respuesta.getTextoRespuesta());
+	}
+	
 }

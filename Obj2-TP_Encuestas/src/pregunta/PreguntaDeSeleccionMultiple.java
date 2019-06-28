@@ -20,23 +20,10 @@ public class PreguntaDeSeleccionMultiple extends PreguntaDeSeleccion {
 		// TODO Auto-generated method stub
 		return this.siguientePregunta;
 	}
-
-	/*@Override
-	public void responder(Respuesta respuesta) {
-		//Asumimos que la respuesta es una respuestaCerrada
-		
-	}*/
 	
 	public void setSiguientePregunta(Pregunta pregunta) {
 		this.siguientePregunta = pregunta;
 	}
-
-	@Override
-	public Boolean esUltimaPregunta() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 	
 }
 

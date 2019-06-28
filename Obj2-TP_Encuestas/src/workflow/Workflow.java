@@ -1,7 +1,6 @@
 package workflow;
 
 import apiladorDePreguntas.ApiladorDePregunta;
-import archivo.ArchivoDeRespuestas;
 import pregunta.Pregunta;
 import respuesta.Respuesta;
 
@@ -40,6 +39,14 @@ public class Workflow {
 	
 	public void setPregunta(Pregunta pregunta) {
 		this.preguntaActual = pregunta;
+	}
+	
+	public void vaciarApilador() {
+		this.apilador.vaciarApilador();
+	}
+	
+	public Boolean tieneAnterior() {
+		return this.apilador.tienePreguntas();
 	}
 	
 }

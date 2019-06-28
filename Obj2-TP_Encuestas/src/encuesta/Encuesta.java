@@ -48,7 +48,7 @@ public class Encuesta extends Observado{
 	}
 
 	public Integer getCantidadDeRespuestasLimite() {
-		// Retorna la cantidad de respuestasCompletas
+		// Retorna la cantidad Limite de respuestasCompletas
 		return this.cantDeRespuestasEsperada;
 	}
 

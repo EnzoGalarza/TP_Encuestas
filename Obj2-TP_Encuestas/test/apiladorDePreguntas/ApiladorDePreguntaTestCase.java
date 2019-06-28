@@ -46,4 +46,15 @@ class ApiladorDePreguntaTestCase {
 		this.apilador.removerPregunta(pregunta2);
 		assertEquals(2,this.apilador.getCantidadDePreguntas());
 	}
+	
+	@Test
+	void testVaciarApilador() {
+		this.apilador.apilarPregunta(pregunta1);
+		this.apilador.apilarPregunta(pregunta2);
+		this.apilador.apilarPregunta(pregunta3);
+		assertEquals(3,this.apilador.getCantidadDePreguntas());
+		
+		this.apilador.vaciarApilador();
+		assertEquals(0,this.apilador.getCantidadDePreguntas());
+	}
 }

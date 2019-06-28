@@ -17,9 +17,5 @@ public abstract class PreguntaDeSeleccion extends Pregunta {
 		return this.posiblesRespuestas;
 	}
 
-	/*public Boolean comprobarSiEsRespuestaPosible(Respuesta respuesta) {
-		return (this.posiblesRespuestas.contains(respuesta));
-	}*/
-
 
 }

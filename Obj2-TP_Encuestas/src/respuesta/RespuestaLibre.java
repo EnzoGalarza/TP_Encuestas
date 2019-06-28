@@ -10,4 +10,7 @@ public class RespuestaLibre extends Respuesta {
 		this.textoRespuesta = respuesta;
 	}
 
+	public void setTextoRespuesta(String texto) {
+		this.textoRespuesta = texto;
+	}
 }

@@ -36,5 +36,10 @@ public class ApiladorDePregunta {
 		// Retorna si el stack tiene alguna pregunta
 		return !this.apilador.empty();
 	}
+
+	public void vaciarApilador() {
+        // Vacia el stack
+		this.apilador.clear();
+	}
 	
 }

@@ -82,4 +82,13 @@ class WorkflowTestCase {
 		assertEquals(workflow.getPregunta(),segundaPregunta);
 	}
 	
+	@Test
+	void testVaciarApiladorWorkflow() {
+		when(preguntaInicial.getSiguientePregunta(respuesta)).thenReturn(segundaPregunta);
+		workflow.siguiente(respuesta);
+		assertTrue(this.workflow.tieneAnterior());
+		this.workflow.vaciarApilador();
+		assertFalse(this.workflow.tieneAnterior());
+	}
+	
 }
