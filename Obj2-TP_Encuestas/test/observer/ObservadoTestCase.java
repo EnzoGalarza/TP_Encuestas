@@ -9,6 +9,9 @@ import encuesta.Encuesta;
 import workflow.Workflow;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
+import java.time.Month;
+
 class ObservadoTestCase {
 
 	private Observado observado;
@@ -18,7 +21,7 @@ class ObservadoTestCase {
 	@BeforeEach
 	public void setUp() {
 		this.workflow = mock(Workflow.class);
-		this.observado = new Encuesta(workflow,10);
+		this.observado = new Encuesta(workflow,10,LocalDate.of(2019, Month.JUNE, 2));
 	}
 	
 	@Test
