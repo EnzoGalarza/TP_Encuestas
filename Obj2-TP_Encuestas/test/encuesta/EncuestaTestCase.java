@@ -84,6 +84,14 @@ class EncuestaTestCase {
 	}
 	
 	@Test
+	void testUnaEncuestaNoDisponibleNoSePuedeResponder() {
+		assertFalse(this.encuesta.disponible());
+		this.encuesta.setPregunta(primerPreguntaProtocolo);
+		this.encuesta.responder(respuesta1);
+		verify(protocolo,times(0)).siguiente(respuesta1);
+	}
+	
+	@Test
 	void testUnaEncuestaDisponibleNoSePuedeModificar() {
 		this.encuesta.finalizarEdicion();
 		this.encuesta.setPregunta(primerPreguntaProtocolo);
@@ -96,6 +104,7 @@ class EncuestaTestCase {
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
 		this.encuesta.finalizarEdicion();
 		assertTrue(this.encuesta.disponible());
+		assertFalse(this.encuesta.finalizada());
 		this.encuesta.responder(respuesta2);
 		verify(protocolo,times(1)).siguiente(respuesta2);
 		verify(observador1).update(encuesta, primerPreguntaProtocolo, respuesta2);
@@ -115,6 +124,7 @@ class EncuestaTestCase {
 	void seCreaConUnaFecha() {
 	     assertEquals(encuesta.fechaDeCreacion(),LocalDate.of(2019, Month.JUNE, 1));
 	}
+	
 	void testGuardarCambiosEnUltimaPreguntaEncuesta() {
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
 		when(primerPreguntaProtocolo.esUltimaPregunta()).thenReturn(true);
@@ -125,13 +135,21 @@ class EncuestaTestCase {
 	}
 	
 	@Test
-	void testUnaEncuestaNoPuedeGuardarLosCambiosSiNoEstaEnLaUltimaPreguntaOSiNoSePuedeResponder() {
+	void testUnaEncuestaNoPuedeGuardarLosCambiosSiNoEstaEnLaUltimaPregunta() {
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
 		when(primerPreguntaProtocolo.esUltimaPregunta()).thenReturn(false);
 		
 		this.encuesta.guardarCambios();
 		// verifico que no se cambia La cantidadDeRespuestaLimiteAlCuestionario
 		assertEquals(40,this.encuesta.getCantidadDeRespuestasLimite());
+	}
+	
+	@Test
+	void testUnaEncuestaNoPuedeGuardarLosCambiosSiEstaCerrada() {
+		when(protocolo.getPregunta()).thenReturn(segundaPreguntaProtocolo);
+		when(segundaPreguntaProtocolo.esUltimaPregunta()).thenReturn(true);
+		this.encuestaNoRespondible.guardarCambios();
+		assertEquals(0,this.encuestaNoRespondible.cantidadDeRespuestasCompletas());
 	}
 	
 }

@@ -2,7 +2,6 @@ package encuesta;
 
 
 import java.time.LocalDate;
-import java.util.function.BooleanSupplier;
 
 import observer.Observado;
 import observer.Observador;
@@ -90,10 +89,16 @@ public class Encuesta extends Observado{
 	public void guardarCambios() {
 		// Si se respondio a todas las preguntas cambia la sesion de su encapsulador
 		// las respuestas y decrementando en 1 las respuestas limites
-	  if(this.cantDeRespuestasEsperada > 0 && this.getPreguntaActual().esUltimaPregunta()) {	
+	  if(!this.finalizada() && this.getPreguntaActual().esUltimaPregunta()) {	
 		this.encapsulador.nuevaSesion();
-		this.cantDeRespuestasEsperada--;
+		if(this.cantDeRespuestasEsperada > 1) {
+		 this.cantDeRespuestasEsperada--;
+		}else {
+			this.cerrarEncuesta();
+		}
+		
 	  }
+	  
 	}
 
 	public Boolean disponible() {
@@ -103,6 +108,11 @@ public class Encuesta extends Observado{
 
 	public LocalDate fechaDeCreacion() {
 		return fechaDeCreacion;
+	}
+
+	public Integer cantidadDeRespuestasCompletas() {
+		// Retorna la cantidad de formularios de esta encuesta completos
+		return this.encapsulador.cantidadDeFormulariosCompletos();
 	}
 	
 }
