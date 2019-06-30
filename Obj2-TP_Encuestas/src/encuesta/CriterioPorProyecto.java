@@ -8,13 +8,17 @@ import java.util.List;
 import proyecto.Proyecto;
 
 public class CriterioPorProyecto extends CriterioDeBusqueda{
-	
+
+	@Override
+	public List<Encuesta> filtrarPorCriterio(List<Encuesta> encuestas) {
+		return null;
+	}
+	/*
 	List<Proyecto> proyectos;
 	
 	public CriterioPorProyecto(List<Proyecto> proyectos) {
 		this.proyectos = proyectos; 
 	}
-
 	@Override
 	public List<Encuesta> filtrarPorCriterio(List<Encuesta> encuestas) {
 		List<Encuesta> encuestasOrdenadas = new ArrayList<>();
@@ -32,7 +36,7 @@ public class CriterioPorProyecto extends CriterioDeBusqueda{
 		
 		
 		return encuestasOrdenadas;
-	}
+	}*/
 
 
 }
