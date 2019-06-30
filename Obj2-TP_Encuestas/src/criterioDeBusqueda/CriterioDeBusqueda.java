@@ -1,6 +1,8 @@
-package encuesta;
+package criterioDeBusqueda;
 
 import java.util.List;
+
+import encuesta.Encuesta;
 
 public abstract class CriterioDeBusqueda {
 	

@@ -1,7 +1,9 @@
-package encuesta;
+package criterioDeBusqueda;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import encuesta.Encuesta;
 
 public class CriterioUltimasCreadas extends CriterioDeBusqueda {
 

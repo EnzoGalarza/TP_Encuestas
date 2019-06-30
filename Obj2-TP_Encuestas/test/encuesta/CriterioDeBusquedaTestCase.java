@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import criterioDeBusqueda.CriterioUltimasCreadas;
 import pregunta.PreguntaNula;
 import proyecto.Proyecto;
 import workflow.Workflow;
