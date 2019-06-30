@@ -17,14 +17,16 @@ public class Encuesta extends Observado{
 	private Boolean disponible;
 	private Boolean cerrada;
 	private LocalDate fechaDeCreacion;
+	private EstadoDeEncuesta estado;
 	
 	public Encuesta(Workflow protocolo, Integer cantDeRespuestasEsperada, LocalDate localDate) {
 		this.protocolo = protocolo;
 		this.cantDeRespuestasEsperada = cantDeRespuestasEsperada;
-		this.disponible = false;
-		this.cerrada = false;
+		//this.disponible = false;
+		//this.cerrada = false;
 		this.encapsulador = new EncapsuladorDeRespuesta();
 		this.fechaDeCreacion = localDate;
+		this.estado = new EstadoDeEncuestaEnEdicion(this);
 	}
 
 	public void siguiente(Respuesta r) {
@@ -34,12 +36,12 @@ public class Encuesta extends Observado{
 	
 	public void finalizarEdicion() {
 		// Finaliza la edicion por parte del investigador, permitiendo que se responda
-		this.disponible = true;
+		this.estado.finalizarEdicion();
 	}
 	
 	public void cerrarEncuesta() {
 		// Cierra la encuesta, impidiendo que se responda
-		this.cerrada = true;
+		this.estado.cerrarEncuesta();
 	}
 	
 	public void anterior() {
@@ -64,59 +66,35 @@ public class Encuesta extends Observado{
 	
 	public void responder(Respuesta unaRespuesta) {
 		// Responde la pregunta actual si es posibleResponder
-		estadoDeEncuesta();
-		
-		
-	  if(this.disponible && !this.cerrada) {	
-		encapsulador.agregarRespuestaRealizada(this.getPreguntaActual(),unaRespuesta);
-		this.notify(this.getPreguntaActual(), unaRespuesta);
-		this.siguiente(unaRespuesta);
-	  }	
-	}
-	
-	private EstadoDeEncuesta estadoDeEncuesta() {
-		return new EstadoDeEncuestaDisponible();
-		
+		this.estado.responder(unaRespuesta);	
 	}
 
 	public void setPregunta(Pregunta pregunta) {
 		// Cambia la pregunta del workflow si es Posible
-	  if(!disponible && !cerrada) {
-		this.protocolo.setPregunta(pregunta);
-	  }	
+	    this.estado.setPregunta(pregunta);
 	}
 
 	@Override
 	public void notify(Pregunta p, Respuesta r) {
 		// Notifica a sus observadores que se respondio una pregunta con una respuesta
 		for(Observador o : this.observadores) {
-		  if(o.esDeInteres(p, r)) {	
-			 o.update(this, p, r);
-		  }	 
+			o.update(this, p, r);
 		}
 	}
 	
 	public void guardarCambios() {
 		// Si se respondio a todas las preguntas cambia la sesion de su encapsulador
 		// las respuestas y decrementando en 1 las respuestas limites
-		
-		
-		/*
-		if(!this.finalizada() && this.getPreguntaActual().esUltimaPregunta()) {	
-		this.encapsulador.nuevaSesion();
-		if(this.cantDeRespuestasEsperada > 1) {
-		 this.cantDeRespuestasEsperada--;
-		}else {
-			this.cerrarEncuesta();
-		}
-		*/
+	    if(this.getPreguntaActual().esUltimaPregunta()) {
+	    	this.estado.guardarCambios();
+	    }
 		
 	  
 	}
 
 	public Boolean disponible() {
 		// retorna si esta disponible para responder
-		return this.disponible;
+		return this.estado.esDisponible();
 	}
 
 	public LocalDate fechaDeCreacion() {
@@ -136,8 +114,24 @@ public class Encuesta extends Observado{
 		if(this.cantDeRespuestasEsperada > 1) {
 			 this.cantDeRespuestasEsperada--;
 			}else {
-				this.cerrarEncuesta();
+				this.estado.cerrarEncuesta();;
 			}
+	}
+
+	public void setEstado(EstadoDeEncuesta nuevoEstado) {
+		// TODO Auto-generated method stub
+		this.estado = nuevoEstado;
+		
+	}
+
+	public Workflow workflow() {
+		// TODO Auto-generated method stub
+		return this.protocolo;
+	}
+
+	public EstadoDeEncuesta getEstado() {
+		// TODO Auto-generated method stub
+		return this.estado;
 	}
 	
 }
