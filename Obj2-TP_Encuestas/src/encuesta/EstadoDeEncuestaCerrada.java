@@ -1,19 +1,16 @@
 package encuesta;
 
-import respuesta.Respuesta;
-
 public class EstadoDeEncuestaCerrada extends EstadoDeEncuesta{
 
-	@Override
+	public EstadoDeEncuestaCerrada(Encuesta encuesta) {
+		this.encuesta = encuesta;
+	}
+
+	/*@Override
 	protected Boolean canHandle(Encuesta unaEncuesta) {
-		return unaEncuesta.finalizada();
-	}
+		throw new RuntimeException();
+	}*/
 
-	@Override
-	protected void agregarRespuestaPara(Encuesta unaEncuesta, Respuesta unaRespuesta) {
-		throw new RuntimeException("Error: esta cerrada");
-	}
-
-
+	
 
 }
