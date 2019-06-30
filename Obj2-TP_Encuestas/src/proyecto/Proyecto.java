@@ -39,10 +39,12 @@ public class Proyecto {
 		return proposito;
 	}
 	
-	public Boolean subProyectosFinalizados() {
-		Boolean estaFinalizado = true;
+	
+	
+	public Boolean subProyectosYEncuestasFinalizados() {
+		Boolean estaFinalizado = this.encuestasFinalizadas();
 		for(Proyecto p: subProyectos) {
-			estaFinalizado = estaFinalizado && this.encuestasFinalizadas();
+			estaFinalizado = estaFinalizado && p.subProyectosYEncuestasFinalizados();
 		}
 		return estaFinalizado;
 	}
