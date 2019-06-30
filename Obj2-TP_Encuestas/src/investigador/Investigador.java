@@ -21,11 +21,15 @@ public class Investigador implements Observador{
 	private String user;
 	private String password;
 	private List<Proyecto> proyectos;
+	private List<Pregunta> preguntasDeInteres;
+	private List<Respuesta> respuestasDeInteres;
 	
 	public Investigador(String user, String password) { 
 		this.user = user;
 		this.password = password; 
 		this.proyectos = new ArrayList<Proyecto>();
+		this.preguntasDeInteres = new ArrayList<Pregunta>();
+		this.respuestasDeInteres = new ArrayList<Respuesta>();
 	}
 	
 	public String getUser() {
@@ -76,6 +80,32 @@ public class Investigador implements Observador{
 
 	public void agregarPreguntaEn(Proyecto proyecto, Encuesta encuesta, Pregunta pregunta1) {
 		this.getEncuesta(proyecto, encuesta).setPregunta(pregunta1);		
+	}
+
+	public void agregarPreguntaDeInteres(Pregunta pregunta) {
+		// TODO Auto-generated method stub
+		this.preguntasDeInteres.add(pregunta);
+		
+	}
+
+	@Override
+	public Boolean esDeInteres(Pregunta p, Respuesta r) {
+		// TODO Auto-generated method stub
+		return this.preguntasDeInteres.contains(p) || this.respuestasDeInteres.contains(r);
+	}
+
+	public List<Pregunta> getPreguntasDeInteres() {
+		// TODO Auto-generated method stub
+		return this.preguntasDeInteres;
+	}
+
+	public void agregarRespuestaDeInteres(Respuesta respuesta) {
+		// TODO Auto-generated method stub
+		this.respuestasDeInteres.add(respuesta);
+	}
+	
+	public List<Respuesta> getRespuestasDeInteres(){
+		return this.respuestasDeInteres;
 	}
 
 }

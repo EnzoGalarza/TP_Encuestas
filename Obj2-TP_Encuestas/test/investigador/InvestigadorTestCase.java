@@ -10,6 +10,7 @@ import investigador.Investigador;
 import pregunta.Pregunta;
 import pregunta.PreguntaDeSeleccionSimple;
 import proyecto.Proyecto;
+import respuesta.Respuesta;
 
 import static org.mockito.Mockito.*;
 
@@ -24,9 +25,12 @@ class InvestigadorTestCase {
 	private Pregunta pregunta1;
 	private Pregunta pregunta2;
 	private Pregunta pregunta3;
+	private Respuesta respuesta1, respuesta2;
 	
 	@BeforeEach 
 	public void setUp() {
+		respuesta1 = mock(Respuesta.class);
+		respuesta2 = mock(Respuesta.class);
 		proyecto1 = new Proyecto("descripcion", "proposito");
 		encuesta = mock(Encuesta.class);
 		pregunta1 = new PreguntaDeSeleccionSimple("Viaja en tren", new ArrayList<>());
@@ -72,20 +76,32 @@ class InvestigadorTestCase {
 		assertEquals(pregunta1,investigador.getEncuesta(proyecto1, encuestaCreada).getPreguntaActual());
 	}
 	
-	
-	
+	@Test
+	void testInvestigadorAgregarPreguntaDeInteres() {
+		List<Pregunta> preguntasDeInteres = new ArrayList<Pregunta>();
+		preguntasDeInteres.add(pregunta1);
+		this.investigador.agregarPreguntaDeInteres(pregunta1);
+		assertEquals(preguntasDeInteres,investigador.getPreguntasDeInteres());
+	}
 
+	@Test
+	void testInvestigadorAgregarRespuestaDeInteres() {
+		List<Respuesta> respuestasDeInteres = new ArrayList<Respuesta>();
+		respuestasDeInteres.add(respuesta1);
+		this.investigador.agregarRespuestaDeInteres(respuesta1);
+		assertEquals(respuestasDeInteres, this.investigador.getRespuestasDeInteres());
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Test
+	void testEsDeInteres() {
+		this.investigador.agregarPreguntaDeInteres(pregunta1);
+		this.investigador.agregarRespuestaDeInteres(respuesta1);
+		assertTrue(this.investigador.esDeInteres(pregunta1, respuesta1));
+		
+		assertFalse(this.investigador.esDeInteres(pregunta2, respuesta2));
+		
+		assertTrue(this.investigador.esDeInteres(pregunta2, respuesta1));
+	}
 	
 	
 	

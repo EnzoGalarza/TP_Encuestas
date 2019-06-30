@@ -90,7 +90,9 @@ public class Encuesta extends Observado{
 	public void notify(Pregunta p, Respuesta r) {
 		// Notifica a sus observadores que se respondio una pregunta con una respuesta
 		for(Observador o : this.observadores) {
-			o.update(this, p, r);
+		  if(o.esDeInteres(p, r)) {	
+			 o.update(this, p, r);
+		  }	 
 		}
 	}
 	

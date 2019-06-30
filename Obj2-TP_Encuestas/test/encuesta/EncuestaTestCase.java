@@ -71,8 +71,9 @@ class EncuestaTestCase {
 	
 	@Test
 	void testNotifyObservadores() {
+		when(observador2.esDeInteres(primerPreguntaProtocolo, respuesta1)).thenReturn(true);
 		this.encuesta.notify(primerPreguntaProtocolo, respuesta1);
-		verify(observador1).update(encuesta, primerPreguntaProtocolo, respuesta1);
+		verify(observador1,times(0)).update(encuesta, primerPreguntaProtocolo, respuesta1);
 		verify(observador2).update(encuesta, primerPreguntaProtocolo, respuesta1);
 	}
 	
@@ -102,13 +103,14 @@ class EncuestaTestCase {
 	@Test
 	void testUnaEncuestaDisponibleSePuedeResponder() {
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
+		when(observador1.esDeInteres(primerPreguntaProtocolo, respuesta2)).thenReturn(true);
 		this.encuesta.finalizarEdicion();
 		assertTrue(this.encuesta.disponible());
 		assertFalse(this.encuesta.finalizada());
 		this.encuesta.responder(respuesta2);
 		verify(protocolo,times(1)).siguiente(respuesta2);
 		verify(observador1).update(encuesta, primerPreguntaProtocolo, respuesta2);
-		verify(observador2).update(encuesta, primerPreguntaProtocolo, respuesta2);
+		verify(observador2,times(0)).update(encuesta, primerPreguntaProtocolo, respuesta2);
 	}
 	
 	@Test
