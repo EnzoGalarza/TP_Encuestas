@@ -19,14 +19,16 @@ class EncuestaTestCase {
 
 	private Encuesta encuesta;
 	private Workflow protocolo;
-	private Encuesta encuestaNoRespondible;
 	private Pregunta primerPreguntaProtocolo;
 	private Pregunta segundaPreguntaProtocolo;
 	private Respuesta respuesta1, respuesta2;
 	private Observador observador1, observador2;
+    private EstadoDeEncuesta estadoCerrado,estadoDisponible;
 	
 	@BeforeEach
 	public void setUp() {
+		estadoCerrado = mock(EstadoDeEncuestaCerrada.class);
+		estadoDisponible = mock(EstadoDeEncuestaDisponible.class);
 		observador1 = mock(Observador.class);
 		observador2 = mock(Observador.class);
 		respuesta1 = mock(Respuesta.class);
@@ -35,16 +37,19 @@ class EncuestaTestCase {
 		this.segundaPreguntaProtocolo = mock(Pregunta.class);
 		this.protocolo = mock(Workflow.class);
 		this.encuesta = new Encuesta(protocolo,40, LocalDate.of(2019, Month.JUNE, 1));
-		this.encuestaNoRespondible = new Encuesta(protocolo,0, LocalDate.of(2019, Month.JUNE, 1));
-		this.encuestaNoRespondible.cerrarEncuesta();
 		this.encuesta.register(observador1);
 		this.encuesta.register(observador2);
 	}
 
 	@Test
+	void testUnaEncuestaNaceConEstadoEnEdicion() {
+		EstadoDeEncuesta nuevoEstado = new EstadoDeEncuestaEnEdicion(this.encuesta);
+		assertTrue(this.encuesta.getEstado().getClass().equals(nuevoEstado.getClass()));
+	}
+	
+	@Test
 	void testUnaEncuestaNaceConUnaCantidadDeRespuestasComoProposito() {
 		assertEquals(40,this.encuesta.getCantidadDeRespuestasLimite());
-		assertEquals(0,this.encuestaNoRespondible.getCantidadDeRespuestasLimite());
 	}
 	
 	@Test
@@ -71,55 +76,72 @@ class EncuestaTestCase {
 	
 	@Test
 	void testNotifyObservadores() {
-		when(observador2.esDeInteres(primerPreguntaProtocolo, respuesta1)).thenReturn(true);
 		this.encuesta.notify(primerPreguntaProtocolo, respuesta1);
-		verify(observador1,times(0)).update(encuesta, primerPreguntaProtocolo, respuesta1);
+		verify(observador1).update(encuesta, primerPreguntaProtocolo, respuesta1);
 		verify(observador2).update(encuesta, primerPreguntaProtocolo, respuesta1);
 	}
 	
 	@Test
-	void testUnaEncuestaNoDisponibleSePuedeModificar() {
-		assertFalse(this.encuesta.disponible());
+	void testUnaEncuestaEnEstadoDeEdicionSePuedeModificar() {
 		this.encuesta.setPregunta(segundaPreguntaProtocolo);
 		verify(protocolo,times(1)).setPregunta(segundaPreguntaProtocolo);
 	}
 	
 	@Test
-	void testUnaEncuestaNoDisponibleNoSePuedeResponder() {
-		assertFalse(this.encuesta.disponible());
+	void testUnaEncuestaEnEstadoDeEdicionNoSePuedeResponder() {
 		this.encuesta.setPregunta(primerPreguntaProtocolo);
 		this.encuesta.responder(respuesta1);
 		verify(protocolo,times(0)).siguiente(respuesta1);
 	}
 	
 	@Test
-	void testUnaEncuestaDisponibleNoSePuedeModificar() {
+	void testUnaEncuestaEnEstadoEdicionPuedePasarAEstadoDisponible() {
+		this.encuesta.finalizarEdicion();
+		assertTrue(this.encuesta.disponible());
+	}
+	
+	@Test
+	void testUnaEncuestaEnEstadoDisponibleNoSePuedeModificar() {
 		this.encuesta.finalizarEdicion();
 		this.encuesta.setPregunta(primerPreguntaProtocolo);
-		assertTrue(this.encuesta.disponible());
+		
 		verifyZeroInteractions(protocolo);
 	}
 	
 	@Test
-	void testUnaEncuestaDisponibleSePuedeResponder() {
+	void testUnaEncuestaEnEstadoDisponibleSePuedeResponder() {
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
-		when(observador1.esDeInteres(primerPreguntaProtocolo, respuesta2)).thenReturn(true);
 		this.encuesta.finalizarEdicion();
-		assertTrue(this.encuesta.disponible());
-		assertFalse(this.encuesta.finalizada());
 		this.encuesta.responder(respuesta2);
 		verify(protocolo,times(1)).siguiente(respuesta2);
-		verify(observador1).update(encuesta, primerPreguntaProtocolo, respuesta2);
-		verify(observador2,times(0)).update(encuesta, primerPreguntaProtocolo, respuesta2);
+		//verify(observador1).update(encuesta, primerPreguntaProtocolo, respuesta2);
+		//verify(observador2).update(encuesta, primerPreguntaProtocolo, respuesta2);
+	}
+	
+	@Test
+	void testUnaEncuestaEnEstadoEdicionNoPuedePasarAEstadoCerrado() {
+		EstadoDeEncuesta nuevoEstado = new EstadoDeEncuestaCerrada(this.encuesta);
+		this.encuesta.cerrarEncuesta();
+		assertFalse(this.encuesta.getEstado().getClass().equals(nuevoEstado.getClass()));
+	}
+	
+	@Test
+	void testUnaEncuestaEnEstadoDisponiblePuedePasarAEstadoCerrado() {
+		EstadoDeEncuesta nuevoEstado = new EstadoDeEncuestaCerrada(this.encuesta);
+		this.encuesta.finalizarEdicion();
+		this.encuesta.cerrarEncuesta();
+		assertTrue(this.encuesta.getEstado().getClass().equals(nuevoEstado.getClass()));
 	}
 	
 	@Test
 	void testUnaEncuestaCerradaNoSePuedeResponderNiModificar() {
+		 this.encuesta.setPregunta(primerPreguntaProtocolo);
+		 this.encuesta.finalizarEdicion();
 	     this.encuesta.cerrarEncuesta();
-	     assertTrue(this.encuesta.finalizada());
 	     this.encuesta.responder(respuesta1);
 	     this.encuesta.setPregunta(segundaPreguntaProtocolo);
-	     verifyZeroInteractions(protocolo);
+	     verify(protocolo,times(0)).setPregunta(segundaPreguntaProtocolo);
+	     verify(protocolo,times(0)).siguiente(respuesta1);
 	}
 	
 	@Test
@@ -127,31 +149,61 @@ class EncuestaTestCase {
 	     assertEquals(encuesta.fechaDeCreacion(),LocalDate.of(2019, Month.JUNE, 1));
 	}
 	
-	void testGuardarCambiosEnUltimaPreguntaEncuesta() {
+	@Test
+	void testUnaEncuestaEnEstadoDisponibleYEnUltimaPreguntaPuedeGuardarCambios() {
+		this.encuesta.setPregunta(primerPreguntaProtocolo);
+		this.encuesta.finalizarEdicion();
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
 		when(primerPreguntaProtocolo.esUltimaPregunta()).thenReturn(true);
 		this.encuesta.guardarCambios();
 		
-		// verifico que se cambia La cantidadDeRespuestaLimiteAlCuestionario
+		// verifico que se cambia La cantidadDeRespuestaCompletasLimiteAlCuestionario Y la cantidad
+		// de respuestasCompletas
 		assertEquals(39,this.encuesta.getCantidadDeRespuestasLimite());
+		assertEquals(1,this.encuesta.cantidadDeRespuestasCompletas());
 	}
 	
 	@Test
-	void testUnaEncuestaNoPuedeGuardarLosCambiosSiNoEstaEnLaUltimaPregunta() {
+	void testUnaEncuestaSiEstaEnDisponibleYNoEsLaUltimaPreguntaNoGuardaLosCambios() {
 		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
 		when(primerPreguntaProtocolo.esUltimaPregunta()).thenReturn(false);
+		this.encuesta.finalizarEdicion();
+		this.encuesta.guardarCambios();
+		// verifico que no se cambia La cantidadDeRespuestaLimiteAlCuestionario
+		assertEquals(40,this.encuesta.getCantidadDeRespuestasLimite());
+		assertEquals(0,this.encuesta.cantidadDeRespuestasCompletas());
+	}
+	
+	@Test
+	void testUnaEncuestaNoPuedeGuardarSiNoEstaEnDisponible() {
+		when(protocolo.getPregunta()).thenReturn(segundaPreguntaProtocolo);
+		when(segundaPreguntaProtocolo.esUltimaPregunta()).thenReturn(true);
 		
 		this.encuesta.guardarCambios();
 		// verifico que no se cambia La cantidadDeRespuestaLimiteAlCuestionario
 		assertEquals(40,this.encuesta.getCantidadDeRespuestasLimite());
+		assertEquals(0,this.encuesta.cantidadDeRespuestasCompletas());
+		
+		
+		this.encuesta.finalizarEdicion();
+		this.encuesta.cerrarEncuesta();
+		this.encuesta.guardarCambios();
+		assertEquals(40,this.encuesta.getCantidadDeRespuestasLimite());
+		assertEquals(0,this.encuesta.cantidadDeRespuestasCompletas());
 	}
 	
 	@Test
-	void testUnaEncuestaNoPuedeGuardarLosCambiosSiEstaCerrada() {
+	void testUnaEncuestaDisponibleYEnLaUltimaPreguntaPuedeGuardarCambios(){
+		
 		when(protocolo.getPregunta()).thenReturn(segundaPreguntaProtocolo);
 		when(segundaPreguntaProtocolo.esUltimaPregunta()).thenReturn(true);
-		this.encuestaNoRespondible.guardarCambios();
-		assertEquals(0,this.encuestaNoRespondible.cantidadDeRespuestasCompletas());
+		
+		this.encuesta.finalizarEdicion();
+		this.encuesta.guardarCambios();
+		// verifico que no se cambia La cantidadDeRespuestaLimiteAlCuestionario
+		assertEquals(39,this.encuesta.getCantidadDeRespuestasLimite());
+		assertEquals(1,this.encuesta.cantidadDeRespuestasCompletas());
+		
 	}
 	
 }
