@@ -17,13 +17,14 @@ class ArchivoDeRespuestasRealizadasTest {
 	private PreguntaDeSeleccionSimple pregunta;
 	private RespuestaCerrada respuesta;
 	private ArrayList<Respuesta> respuestas;
-	private RespuestaCerrada respuesta2;
+	private RespuestaCerrada respuesta2, respuesta3;
 	
 	@BeforeEach
 	public void setUp() {
 		pregunta = mock(PreguntaDeSeleccionSimple.class);
 		respuesta = mock(RespuestaCerrada.class);
 		respuesta2 = mock(RespuestaCerrada.class);
+		respuesta3 = mock(RespuestaCerrada.class);
 		respuestas =  new ArrayList<>();
 		respuestas.add(respuesta); respuestas.add(respuesta2);
 	}
@@ -48,6 +49,15 @@ class ArchivoDeRespuestasRealizadasTest {
 		assertEquals(archivo.respuestaDe(pregunta), respuestas);
 		assertTrue(archivo.contieneRespuesta(pregunta, respuesta));
 		assertTrue(archivo.contieneRespuesta(pregunta, respuesta2));
+	}
+	
+	@Test
+	void puedeNoTenerLaRespuestaAUnaPregunta() {
+		ArchivoDeRespuestas archivo = new ArchivoDeRespuestas();		
+
+		archivo.guardarMuchas(pregunta, respuestas);
+		
+		assertFalse(archivo.contieneRespuesta(pregunta, respuesta3));
 	}
 	
 	@Test
