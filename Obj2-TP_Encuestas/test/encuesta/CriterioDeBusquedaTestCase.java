@@ -30,7 +30,7 @@ class CriterioDeBusquedaTestCase {
 	@BeforeEach
 	void setUp() throws Exception {
 		proyec1 = new Proyecto("Descripcion", "Proposito");
-		criterio = new CriterioUltimasCreadas();
+		criterio = new CriterioUltimasCreadas(25);
 		encuest1 = new Encuesta(new Workflow(new PreguntaNula()), 0, LocalDate.of(2019, Month.JUNE, 26));
 		encuest2 = new Encuesta(new Workflow(new PreguntaNula()), 0, LocalDate.of(2019, Month.JUNE, 25));
 		encuest3 = new Encuesta(new Workflow(new PreguntaNula()), 0, LocalDate.of(2019, Month.JUNE, 24));
@@ -41,7 +41,7 @@ class CriterioDeBusquedaTestCase {
 	}
 	
 	@Test
-	void listaOrdenadaPorFecha() {
+	void testListaOrdenadaPorFecha() {
 		
 		List<Encuesta> encuestas = new ArrayList<>();
 		encuestas.add(encuest1);
@@ -60,8 +60,7 @@ class CriterioDeBusquedaTestCase {
 		proyec1.agregarEncuesta(encuest3);
 		proyec1.agregarEncuesta(encuest7);
 		
-		
-		assertEquals(encuestas,criterio.filtrarPorCriterio(proyec1.getEncuestas()));
+		throw new RuntimeException("Implementar que reciba proyectos");
 	}
 }
 

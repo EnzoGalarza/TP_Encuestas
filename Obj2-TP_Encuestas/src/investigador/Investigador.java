@@ -73,40 +73,31 @@ public class Investigador implements Observador{
 		return proyectos.stream().filter(proyecto -> proyecto.equals(unProyecto)).count();
 	}
 
-	public Encuesta getEncuesta(Proyecto unProyecto, Encuesta unaEncuesta) {
-		Stream<Encuesta> encuestas = unProyecto.getEncuestas().stream().filter(encuesta -> encuesta.equals(unaEncuesta));
-		return encuestas.findFirst().get();
-	}
-
-	public void agregarPreguntaEn(Proyecto proyecto, Encuesta encuesta, Pregunta pregunta1) {
-		this.getEncuesta(proyecto, encuesta).setPregunta(pregunta1);		
+	public void setearPregunta(Encuesta encuesta, Pregunta pregunta1) {
+		encuesta.setPregunta(pregunta1);		
 	}
 
 	public void agregarPreguntaDeInteres(Pregunta pregunta) {
-		// TODO Auto-generated method stub
 		this.preguntasDeInteres.add(pregunta);
-		
 	}
 
 	@Override
 	public Boolean esDeInteres(Pregunta p, Respuesta r) {
-		// TODO Auto-generated method stub
 		return this.preguntasDeInteres.contains(p) || this.respuestasDeInteres.contains(r);
 	}
 
 	public List<Pregunta> getPreguntasDeInteres() {
-		// TODO Auto-generated method stub
 		return this.preguntasDeInteres;
 	}
 
 	public void agregarRespuestaDeInteres(Respuesta respuesta) {
-		// TODO Auto-generated method stub
 		this.respuestasDeInteres.add(respuesta);
 	}
 	
 	public List<Respuesta> getRespuestasDeInteres(){
 		return this.respuestasDeInteres;
 	}
+
 
 }
 

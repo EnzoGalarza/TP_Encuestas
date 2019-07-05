@@ -68,12 +68,12 @@ class InvestigadorTestCase {
 	}
 
 	@Test
-	void defineUnaEncuestaAgregandoPreguntas() {
-		//when(encuesta.getPreguntaActual()).thenReturn(pregunta1);
+	void testDefineUnaEncuestaAgregandoPreguntas() {
+		when(encuesta.getPreguntaActual()).thenReturn(pregunta1);
 		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1,32);
-		investigador.agregarPreguntaEn(proyecto1, encuestaCreada, pregunta1);
+		investigador.setearPregunta(encuestaCreada, pregunta1);
 		
-		assertEquals(pregunta1,investigador.getEncuesta(proyecto1, encuestaCreada).getPreguntaActual());
+		assertEquals(pregunta1,encuesta.getPreguntaActual());
 	}
 	
 	@Test
