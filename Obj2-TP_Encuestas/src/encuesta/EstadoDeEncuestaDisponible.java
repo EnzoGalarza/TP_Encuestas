@@ -23,6 +23,8 @@ public class EstadoDeEncuestaDisponible extends EstadoDeEncuesta{
 	@Override
 	public void responder(Respuesta r) {
 		this.encuesta.encapsulador().agregarRespuestaRealizada(this.encuesta.getPreguntaActual(), r);
+		this.encuesta.getPreguntaActual().notificar(encuesta, r);
+		r.notificar(encuesta, this.encuesta.getPreguntaActual());
 		this.encuesta.workflow().siguiente(r);
 	}
 	

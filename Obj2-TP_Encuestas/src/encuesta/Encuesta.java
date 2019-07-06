@@ -9,7 +9,7 @@ import pregunta.Pregunta;
 import respuesta.Respuesta;
 import workflow.Workflow;
 
-public class Encuesta extends Observado{ 
+public class Encuesta{ 
 
 	private Integer cantDeRespuestasEsperada;
 	private Workflow protocolo;
@@ -72,14 +72,6 @@ public class Encuesta extends Observado{
 	public void setPregunta(Pregunta pregunta) {
 		// Cambia la pregunta del workflow si es Posible
 	    this.estado.setPregunta(pregunta);
-	}
-
-	@Override
-	public void notify(Pregunta p, Respuesta r) {
-		// Notifica a sus observadores que se respondio una pregunta con una respuesta
-		for(Observador o : this.observadores) {
-			o.update(this, p, r);
-		}
 	}
 	
 	public void guardarCambios() {

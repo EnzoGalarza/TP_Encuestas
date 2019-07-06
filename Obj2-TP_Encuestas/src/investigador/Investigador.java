@@ -4,10 +4,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
-import java.util.stream.Stream;
-
-import archivo.ArchivoDeRespuestas;
 import encuesta.Encuesta;
 import observer.Observador;
 import pregunta.Pregunta;
@@ -21,15 +17,11 @@ public class Investigador implements Observador{
 	private String user;
 	private String password;
 	private List<Proyecto> proyectos;
-	private List<Pregunta> preguntasDeInteres;
-	private List<Respuesta> respuestasDeInteres;
 	
 	public Investigador(String user, String password) { 
 		this.user = user;
 		this.password = password; 
 		this.proyectos = new ArrayList<Proyecto>();
-		this.preguntasDeInteres = new ArrayList<Pregunta>();
-		this.respuestasDeInteres = new ArrayList<Respuesta>();
 	}
 	
 	public String getUser() {
@@ -76,28 +68,6 @@ public class Investigador implements Observador{
 	public void setearPregunta(Encuesta encuesta, Pregunta pregunta1) {
 		encuesta.setPregunta(pregunta1);		
 	}
-
-	public void agregarPreguntaDeInteres(Pregunta pregunta) {
-		this.preguntasDeInteres.add(pregunta);
-	}
-
-	@Override
-	public Boolean esDeInteres(Pregunta p, Respuesta r) {
-		return this.preguntasDeInteres.contains(p) || this.respuestasDeInteres.contains(r);
-	}
-
-	public List<Pregunta> getPreguntasDeInteres() {
-		return this.preguntasDeInteres;
-	}
-
-	public void agregarRespuestaDeInteres(Respuesta respuesta) {
-		this.respuestasDeInteres.add(respuesta);
-	}
-	
-	public List<Respuesta> getRespuestasDeInteres(){
-		return this.respuestasDeInteres;
-	}
-
 
 }
 

@@ -1,10 +1,12 @@
 package respuesta;
 
+import encuesta.Encuesta;
+import observer.Observado;
 import pregunta.Pregunta;
 import pregunta.PreguntaDeSeleccionSimple;
 import pregunta.PreguntaNula;
 
-public abstract class Respuesta {
+public abstract class Respuesta extends Observado{
 
 	protected String textoRespuesta;
 
@@ -17,4 +19,7 @@ public abstract class Respuesta {
 		return pregunta;
 	}
 	
+	public void notificar(Encuesta e, Pregunta p) {
+		this.notify(e, p, this);
+	}
 }

@@ -2,26 +2,32 @@ package observer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import encuesta.Encuesta;
-import workflow.Workflow;
-import static org.mockito.Mockito.*;
+import pregunta.Pregunta;
+import pregunta.PreguntaAbierta;
+import respuesta.Respuesta;
 
-import java.time.LocalDate;
-import java.time.Month;
+import static org.mockito.Mockito.*;
 
 class ObservadoTestCase {
 
 	private Observado observado;
-	private Workflow workflow;
-	private Observador observador1;
+	private Observador observador1,observador2;
+	private Encuesta encuesta;
+	private Respuesta respuesta;
+	private Pregunta pregunta;
 	
 	@BeforeEach
 	public void setUp() {
-		this.workflow = mock(Workflow.class);
-		this.observado = new Encuesta(workflow,10,LocalDate.of(2019, Month.JUNE, 2));
+		this.observado = new PreguntaAbierta("Que dia");
+		this.observador1 = mock(Observador.class);
+		this.observador2 = mock(Observador.class);
+		this.pregunta = mock(Pregunta.class);
+		this.respuesta = mock(Respuesta.class);
 	}
 	
 	@Test
@@ -35,6 +41,14 @@ class ObservadoTestCase {
 		this.observado.register(observador1);
 		this.observado.unregister(observador1);
 		assertFalse(observado.esObservador(observador1));
+	}
+	
+	@Test
+	void testNotify() {
+		this.observado.register(observador1);
+		this.observado.register(observador2);
+		this.observado.notify(encuesta, pregunta, respuesta);
+		verify(observador1,times(1)).update(encuesta, pregunta, respuesta);
 	}
 
 }

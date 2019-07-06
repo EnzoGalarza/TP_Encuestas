@@ -1,8 +1,10 @@
 package pregunta;
 
+import encuesta.Encuesta;
+import observer.Observado;
 import respuesta.Respuesta;
 
-public abstract class Pregunta {
+public abstract class Pregunta extends Observado{
 	
 	protected String textoPregunta;
 	
@@ -23,6 +25,10 @@ public abstract class Pregunta {
 	
 	public  Boolean esUltimaPregunta() {
 		return false;
+	}
+	
+	public void notificar(Encuesta e, Respuesta r) {
+		this.notify(e, this, r);
 	}
 	
 }

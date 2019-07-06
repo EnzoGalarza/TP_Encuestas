@@ -3,6 +3,7 @@ package observer;
 import java.util.ArrayList;
 import java.util.List;
 
+import encuesta.Encuesta;
 import pregunta.Pregunta;
 import respuesta.Respuesta;
 
@@ -20,7 +21,11 @@ public abstract class Observado {
 		this.observadores.remove(o);
 	}
 	
-	public abstract void notify(Pregunta p, Respuesta r);
+	protected void notify(Encuesta e, Pregunta p, Respuesta r) {
+		for(Observador o : this.observadores) {
+			o.update(e, p, r);
+		}
+	}
 
 	public  Boolean esObservador(Observador observador) {
 		return this.observadores.contains(observador);

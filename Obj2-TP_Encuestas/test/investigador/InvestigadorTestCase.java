@@ -76,33 +76,5 @@ class InvestigadorTestCase {
 		assertEquals(pregunta1,encuesta.getPreguntaActual());
 	}
 	
-	@Test
-	void testInvestigadorAgregarPreguntaDeInteres() {
-		List<Pregunta> preguntasDeInteres = new ArrayList<Pregunta>();
-		preguntasDeInteres.add(pregunta1);
-		this.investigador.agregarPreguntaDeInteres(pregunta1);
-		assertEquals(preguntasDeInteres,investigador.getPreguntasDeInteres());
-	}
-
-	@Test
-	void testInvestigadorAgregarRespuestaDeInteres() {
-		List<Respuesta> respuestasDeInteres = new ArrayList<Respuesta>();
-		respuestasDeInteres.add(respuesta1);
-		this.investigador.agregarRespuestaDeInteres(respuesta1);
-		assertEquals(respuestasDeInteres, this.investigador.getRespuestasDeInteres());
-	}
-	
-	@Test
-	void testEsDeInteres() {
-		this.investigador.agregarPreguntaDeInteres(pregunta1);
-		this.investigador.agregarRespuestaDeInteres(respuesta1);
-		assertTrue(this.investigador.esDeInteres(pregunta1, respuesta1));
-		
-		assertFalse(this.investigador.esDeInteres(pregunta2, respuesta2));
-		
-		assertTrue(this.investigador.esDeInteres(pregunta2, respuesta1));
-	}
-	
-	
 	
 }
