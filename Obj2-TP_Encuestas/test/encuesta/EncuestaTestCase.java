@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import observer.Observador;
 import pregunta.Pregunta;
 import respuesta.Respuesta;
 import workflow.Workflow;
@@ -23,7 +21,7 @@ class EncuestaTestCase {
 	private Pregunta segundaPreguntaProtocolo;
 	private Respuesta respuesta1, respuesta2;
     private EstadoDeEncuesta estadoCerrado,estadoDisponible;
-	
+    
 	@BeforeEach
 	public void setUp() {
 		estadoCerrado = mock(EstadoDeEncuestaCerrada.class);
@@ -192,6 +190,19 @@ class EncuestaTestCase {
 		assertEquals(39,this.encuesta.getCantidadDeRespuestasLimite());
 		assertEquals(1,this.encuesta.cantidadDeRespuestasCompletas());
 		
+	}
+	
+	@Test
+	void testEncuestaCompletaSuProposito() {
+		when(protocolo.getPregunta()).thenReturn(primerPreguntaProtocolo);
+		when(primerPreguntaProtocolo.esUltimaPregunta()).thenReturn(true);
+		when(estadoCerrado.finalizada()).thenReturn(true);
+		Encuesta encuestaParaFinalizar = new Encuesta(protocolo,1,LocalDate.of(2019,Month.APRIL,11));
+		encuestaParaFinalizar.setEstado(estadoDisponible);
+		encuestaParaFinalizar.actualizarCantidadDeRespuestasEsperada();
+		verify(estadoDisponible,times(1)).cerrarEncuesta();
+		encuestaParaFinalizar.setEstado(estadoCerrado);
+		assertTrue(encuestaParaFinalizar.finalizada());
 	}
 	
 }

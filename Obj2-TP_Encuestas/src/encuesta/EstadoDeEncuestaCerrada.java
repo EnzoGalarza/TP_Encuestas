@@ -10,7 +10,11 @@ public class EstadoDeEncuestaCerrada extends EstadoDeEncuesta{
 	protected Boolean canHandle(Encuesta unaEncuesta) {
 		throw new RuntimeException();
 	}*/
-
+	
+	@Override
+	public Boolean finalizada() {
+		return true;
+	}
 	
 
 }

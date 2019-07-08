@@ -1,14 +1,12 @@
 package pregunta;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import respuesta.Respuesta;
-import respuesta.RespuestaCerrada;
 
 public class PreguntaDeSeleccionSimple extends PreguntaDeSeleccion {
 	
-	private Pregunta siguientePregunta;
+	//private Pregunta siguientePregunta;
 	
 	public PreguntaDeSeleccionSimple(String textoPregunta, Collection<Respuesta> posiblesRespuestas) {
 		super(posiblesRespuestas);

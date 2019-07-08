@@ -13,8 +13,20 @@ public class CriterioPorProyecto extends CriterioDeBusqueda{
 	@Override
 	public List<Encuesta> filtrarPorCriterio(List<Proyecto> proyectos) {
 		
-		return null;
+		List<Encuesta> encuestasOrdenadas = new ArrayList<>();
+		
+		Collections.sort(proyectos, new Comparator<Proyecto>()
+		{		
+			public int compare(Proyecto e1, Proyecto e2) { //ordena los proyectos alfabeticamente
+				return Integer.valueOf(e1.descripcion().compareTo(e2.descripcion()));
+			}	
+		});	
+		
+		for(Proyecto p: proyectos) { //primero aparecen las encuestas del primer proyecto ordeanado alfabeticamente
+			encuestasOrdenadas.addAll(p.getEncuestas());
+		}
+		
+		
+		return encuestasOrdenadas;
 	}
-
-
-}
+} 

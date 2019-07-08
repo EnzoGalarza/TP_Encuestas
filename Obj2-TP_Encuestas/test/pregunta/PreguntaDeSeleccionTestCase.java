@@ -16,12 +16,10 @@ class PreguntaDeSeleccionTestCase {
 	private RespuestaCerrada respuestaPosible1;
 	private RespuestaCerrada respuestaPosible2;
 	private Collection<Respuesta> posiblesRespuestas;
-	private Pregunta siguientePregunta;
 	
 	@BeforeEach
 	void setUp() {
 		posiblesRespuestas = new HashSet<Respuesta>();
-		siguientePregunta = mock(Pregunta.class);
 		respuestaPosible1 = mock(RespuestaCerrada.class);
 		respuestaPosible2 = mock(RespuestaCerrada.class);
 		posiblesRespuestas.add(respuestaPosible1);

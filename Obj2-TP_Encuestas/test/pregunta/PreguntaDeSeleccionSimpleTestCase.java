@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 class PreguntaDeSeleccionSimpleTestCase {
 
 	private PreguntaDeSeleccionSimple pregunta;
-	private RespuestaCerrada respuestaPosible1,respuestaPosible2,respuestaNoPosible;
+	private RespuestaCerrada respuestaPosible1,respuestaPosible2;
 	private Pregunta siguientePregunta;
 	private Collection<Respuesta> posiblesRespuestas;
 	
@@ -24,7 +24,6 @@ class PreguntaDeSeleccionSimpleTestCase {
 		this.siguientePregunta = mock(Pregunta.class);
 		this.respuestaPosible1 = mock(RespuestaCerrada.class);
 		this.respuestaPosible2 = mock(RespuestaCerrada.class);
-		this.respuestaNoPosible = mock(RespuestaCerrada.class);
 		this.posiblesRespuestas = new HashSet<Respuesta>();
 		this.posiblesRespuestas.add(respuestaPosible1);
 		this.posiblesRespuestas.add(respuestaPosible2);

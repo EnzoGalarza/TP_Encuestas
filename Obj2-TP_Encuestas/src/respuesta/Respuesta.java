@@ -3,7 +3,6 @@ package respuesta;
 import encuesta.Encuesta;
 import observer.Observado;
 import pregunta.Pregunta;
-import pregunta.PreguntaDeSeleccionSimple;
 import pregunta.PreguntaNula;
 
 public abstract class Respuesta extends Observado{

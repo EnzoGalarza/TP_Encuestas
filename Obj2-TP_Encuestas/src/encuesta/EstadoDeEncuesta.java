@@ -1,7 +1,5 @@
 package encuesta;
 
-import java.util.Arrays;
-import java.util.List;
 
 import pregunta.Pregunta;
 import respuesta.Respuesta;
@@ -31,6 +29,11 @@ public abstract class EstadoDeEncuesta {
     }
 
 	public Boolean esDisponible() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Boolean finalizada() {
 		// TODO Auto-generated method stub
 		return false;
 	}

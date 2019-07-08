@@ -1,9 +1,6 @@
 package respuesta;
 
 import pregunta.Pregunta;
-import pregunta.PreguntaDeSeleccion;
-import pregunta.PreguntaDeSeleccionSimple;
-import workflow.Workflow;
 
 public class RespuestaCerrada extends Respuesta {
 	

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import pregunta.PreguntaAbierta;
 import pregunta.PreguntaDeSeleccionMultiple;
 import pregunta.PreguntaDeSeleccionSimple;
-import workflow.Workflow;
 
 import static org.mockito.Mockito.*;
 
@@ -20,11 +19,9 @@ class RespuestaCerradaTestCase {
     private RespuestaCerrada respuestaAMultiple;
     private RespuestaCerrada respuestaASimple;
     private RespuestaCerrada respuesta;
-	private Workflow workflow;
     
 	@BeforeEach
 	public void setUp() {
-		this.workflow = mock(Workflow.class);
 		this.preguntaAResponderMultiple = mock(PreguntaDeSeleccionMultiple.class);
 		this.preguntaAResponderSimple = mock(PreguntaDeSeleccionSimple.class);
 		this.preguntaAbierta = mock(PreguntaAbierta.class);

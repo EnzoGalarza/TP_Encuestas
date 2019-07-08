@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import encuesta.Encuesta;
 import investigador.Investigador;
 import pregunta.Pregunta;
-import pregunta.PreguntaDeSeleccionSimple;
 import proyecto.Proyecto;
 import respuesta.Respuesta;
 
@@ -19,25 +18,22 @@ import java.util.List;
 
 class InvestigadorTestCase {
 
-	private Investigador investigador;
+	private Investigador investigador,investigador2;
 	private Proyecto proyecto1;
 	private Encuesta encuesta;
 	private Pregunta pregunta1;
-	private Pregunta pregunta2;
-	private Pregunta pregunta3;
-	private Respuesta respuesta1, respuesta2;
+	private Respuesta respuesta1;
 	
 	@BeforeEach 
 	public void setUp() {
 		respuesta1 = mock(Respuesta.class);
-		respuesta2 = mock(Respuesta.class);
 		proyecto1 = new Proyecto("descripcion", "proposito");
 		encuesta = mock(Encuesta.class);
-		pregunta1 = new PreguntaDeSeleccionSimple("Viaja en tren", new ArrayList<>());
-		pregunta2 = mock(Pregunta.class);
-		pregunta3 = mock(Pregunta.class);
+		//pregunta1 = new PreguntaDeSeleccionSimple("Viaja en tren", new ArrayList<>());
+		pregunta1 = mock(Pregunta.class);
 		investigador = new Investigador("Luca","12345");
 		investigador.agregarProyecto(proyecto1);
+		investigador2 = new Investigador("Pedro","1333");
 	}
 	
 	@Test
@@ -76,5 +72,23 @@ class InvestigadorTestCase {
 		assertEquals(pregunta1,encuesta.getPreguntaActual());
 	}
 	
+	@Test
+	void testNoTieneProyectos() {
+		assertFalse(investigador2.tieneProyectos());
+	}
+	
+	@Test
+	void testEjecucionDeUpdateInvestigador() {
+		//Verifico que se ejecuta el notificar en pregunta y respuesta, ya que no hay especificacion
+		//en el update
+		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1, 23);
+		encuestaCreada.setPregunta(pregunta1);
+		encuestaCreada.finalizarEdicion();
+		pregunta1.register(investigador);
+		respuesta1.register(investigador);
+		encuestaCreada.responder(respuesta1);
+		verify(pregunta1,times(1)).notificar(encuestaCreada, respuesta1);
+		verify(respuesta1,times(1)).notificar(encuestaCreada,pregunta1);
+	}
 	
 }

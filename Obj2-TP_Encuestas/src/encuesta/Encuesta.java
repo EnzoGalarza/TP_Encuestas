@@ -2,9 +2,6 @@ package encuesta;
 
 
 import java.time.LocalDate;
-
-import observer.Observado;
-import observer.Observador;
 import pregunta.Pregunta;
 import respuesta.Respuesta;
 import workflow.Workflow;
@@ -14,8 +11,6 @@ public class Encuesta{
 	private Integer cantDeRespuestasEsperada;
 	private Workflow protocolo;
 	private EncapsuladorDeRespuesta encapsulador;
-	private Boolean disponible;
-	private Boolean cerrada;
 	private LocalDate fechaDeCreacion;
 	private EstadoDeEncuesta estado;
 	
@@ -56,7 +51,7 @@ public class Encuesta{
 
 	public Boolean finalizada() {
 		// Retorna si la encuesta esta cerrada (finalizada)
-		return this.cerrada;
+		return this.estado.finalizada();
 	}
 
 	public Pregunta getPreguntaActual() {

@@ -1,7 +1,6 @@
 package pregunta;
 
 import respuesta.Respuesta;
-import respuesta.RespuestaLibre;
 
 public class PreguntaAbierta extends Pregunta {
 	
