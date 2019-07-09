@@ -2,8 +2,13 @@ package sistema;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import criterioDeBusqueda.CriterioDeBusqueda;
+import encuesta.Encuesta;
 import investigador.Investigador;
+import proyecto.Proyecto;
 
 public class Sistema {
 	
@@ -18,9 +23,21 @@ public class Sistema {
 	}
 
 	public List<Investigador> getInvestigadores() {
-		// TODO Auto-generated method stub
 		return this.investigadores;
 	}
+
+	public List<Encuesta> ordenarPorCriterio(CriterioDeBusqueda criterio) {
+		return criterio.filtrarPorCriterio(this.getTodosLosProyectos());
+	}
+
+	private List<Proyecto> getTodosLosProyectos() {
+		List<Proyecto> proyectos = new ArrayList<>(); 
+		for (Investigador i : investigadores) {
+			proyectos.addAll(i.getProyectos());
+		}
+		return proyectos;
+	}
+
 	
 	
 	

@@ -2,6 +2,7 @@ package proyecto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import encuesta.Encuesta;
 
@@ -39,8 +40,6 @@ public class Proyecto {
 		return proposito;
 	}
 	
-	
-	
 	public Boolean subProyectosYEncuestasFinalizados() {
 		Boolean estaFinalizado = this.encuestasFinalizadas();
 		for(Proyecto p: subProyectos) {
@@ -77,6 +76,10 @@ public class Proyecto {
 	//Lista de los proyectos
 	public List<Proyecto> getSubProyectos() {
 		return subProyectos;
+	}
+
+	public List<Encuesta> getEncuestasDisponibles() {
+		return encuestas.stream().filter(encuesta -> encuesta.disponible()).collect(Collectors.toList());
 	}
 
 }

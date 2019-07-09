@@ -1,6 +1,8 @@
 package proyecto;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import encuesta.Encuesta;
@@ -107,5 +109,21 @@ class ProyectoTestCase {
 		assertFalse(proyecto1.subProyectosYEncuestasFinalizados());
     	
     }
+    
+    @Test
+    void testSePuedeObtenerLasEncuestasDisponiblesDeUnProyecto() {
+    	when(encuesta1.disponible()).thenReturn(true);
+		when(encuesta2.disponible()).thenReturn(false);
+		
+		proyecto2.agregarEncuesta(encuesta1);
+		proyecto2.agregarEncuesta(encuesta2);
+		
+		ArrayList<Encuesta> encuestas = new ArrayList<>();
+		encuestas.add(encuesta1);
+		
+		assertEquals(proyecto2.getEncuestasDisponibles(), encuestas);
+    }
+    
+    
 	
 }	

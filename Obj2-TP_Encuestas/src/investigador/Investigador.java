@@ -40,8 +40,10 @@ public class Investigador implements Observador{
 		this.proyectos.add(unProyecto);
 	}
 
-	public void crearProyecto(String unaDescripcion, String unProposito) {
-		proyectos.add(new Proyecto(unaDescripcion, unProposito));
+	public Proyecto  crearProyecto(String unaDescripcion, String unProposito) {
+		Proyecto nuevo = new Proyecto(unaDescripcion, unProposito);
+		proyectos.add(nuevo);
+		return nuevo;
 	}
 
 	public Boolean tieneProyectos() {
@@ -53,9 +55,9 @@ public class Investigador implements Observador{
 		//Hacer algo??
 	}
 
-	public Encuesta crearEncuesta(Proyecto proyecto1, Integer cantRespuestasCompletasEsperadas) {
+	public Encuesta crearEncuesta(Proyecto proyecto1, Integer cantRespuestasCompletasEsperadas, LocalDate unaFecha) {
 		Workflow workflow = new Workflow(new PreguntaNula());
-		Encuesta unaEncuesta = new Encuesta(workflow, cantRespuestasCompletasEsperadas, LocalDate.of(2019, Month.JULY, 1));
+		Encuesta unaEncuesta = new Encuesta(workflow, cantRespuestasCompletasEsperadas, unaFecha);
 		
 		proyecto1.agregarEncuesta(unaEncuesta);
 		return unaEncuesta;

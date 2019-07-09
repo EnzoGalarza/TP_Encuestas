@@ -13,6 +13,7 @@ import respuesta.Respuesta;
 
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List; 
 
@@ -58,7 +59,7 @@ class InvestigadorTestCase {
 	
 	@Test
 	void creaUnaEncuestaEnUnProyecto() {
-		investigador.crearEncuesta(proyecto1,38);
+		investigador.crearEncuesta(proyecto1,38, LocalDate.now());
 		
 		assertEquals(1,investigador.cantidadDeEncuestasEn(proyecto1));
 	}
@@ -66,7 +67,7 @@ class InvestigadorTestCase {
 	@Test
 	void testDefineUnaEncuestaAgregandoPreguntas() {
 		when(encuesta.getPreguntaActual()).thenReturn(pregunta1);
-		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1,32);
+		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1,32, LocalDate.now());
 		investigador.setearPregunta(encuestaCreada, pregunta1);
 		
 		assertEquals(pregunta1,encuesta.getPreguntaActual());
@@ -81,7 +82,7 @@ class InvestigadorTestCase {
 	void testEjecucionDeUpdateInvestigador() {
 		//Verifico que se ejecuta el notificar en pregunta y respuesta, ya que no hay especificacion
 		//en el update
-		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1, 23);
+		Encuesta encuestaCreada = investigador.crearEncuesta(proyecto1, 23, LocalDate.now());
 		encuestaCreada.setPregunta(pregunta1);
 		encuestaCreada.finalizarEdicion();
 		pregunta1.register(investigador);
