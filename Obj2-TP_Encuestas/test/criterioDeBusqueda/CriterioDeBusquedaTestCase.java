@@ -54,6 +54,7 @@ class CriterioDeBusquedaTestCase {
 		//este test es para CriterioUtimasCreadas
 		
 		List<Encuesta> encuestasOrdenadas = new ArrayList<>(); //es lo que se espera que retorne filtrarPorCriterio(proyectos)
+		
 		encuestasOrdenadas.add(encuest1);
 		encuestasOrdenadas.add(encuest2);
 		encuestasOrdenadas.add(encuest3);
@@ -62,8 +63,16 @@ class CriterioDeBusquedaTestCase {
 		encuestasOrdenadas.add(encuest6);
 		encuestasOrdenadas.add(encuest7);
 		
+		encuest1.finalizarEdicion();
+		encuest2.finalizarEdicion();
+		encuest3.finalizarEdicion();
+		encuest4.finalizarEdicion();
+		encuest5.finalizarEdicion();
+		encuest6.finalizarEdicion();
+		encuest7.finalizarEdicion();
 		
-		List<Proyecto> proyectos = new ArrayList<Proyecto>(); //lista de proyectos que se le pasa como parametro a
+		
+		List<Proyecto> proyectos = new ArrayList<Proyecto>(); //Lista de proyectos que se le pasa como parametro a
 		proyectos.add(proyec1); 						      // filtrarPorCriterio(proyectos)
 		proyectos.add(proyec2);
 		
@@ -110,6 +119,13 @@ class CriterioDeBusquedaTestCase {
 		when(encuesta12.cantidadDeRespuestasCompletas()).thenReturn(15);
 		when(encuesta13.cantidadDeRespuestasCompletas()).thenReturn(1);
 		
+		when(encuesta8.disponible()).thenReturn(true);
+		when(encuesta9.disponible()).thenReturn(true);
+		when(encuesta10.disponible()).thenReturn(true);
+		when(encuesta11.disponible()).thenReturn(true);
+		when(encuesta12.disponible()).thenReturn(true);
+		when(encuesta13.disponible()).thenReturn(true);
+		
 		List<Encuesta> encuestasPorUtilizacion = new ArrayList<Encuesta>();
 		encuestasPorUtilizacion.add(encuesta13);
 		encuestasPorUtilizacion.add(encuesta11);
@@ -120,8 +136,6 @@ class CriterioDeBusquedaTestCase {
 		
 		List<Proyecto> proyectos = new ArrayList<Proyecto>();
 		proyectos.add(proyect4);
-		//proyectos.add(proyect5);
-		//proyectos.add(proyect3);
 		
 		proyect4.agregarEncuesta(encuesta10);
 		proyect4.agregarEncuesta(encuesta13);

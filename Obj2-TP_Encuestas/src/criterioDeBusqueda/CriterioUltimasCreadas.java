@@ -21,7 +21,7 @@ public class CriterioUltimasCreadas extends CriterioDeBusqueda {
 		List<Encuesta> encuestas = new ArrayList<Encuesta>();
 		
 		for(Proyecto p: proyectos) {
-			encuestas.addAll(p.getEncuestas()); //todas las encuestas en proyectos
+			encuestas.addAll(p.getEncuestasDisponibles()); //todas las encuestas en proyectos
 		}
 		
 		Collections.sort(encuestas, new Comparator<Encuesta>(){		//ordena las encuestas por su fecha

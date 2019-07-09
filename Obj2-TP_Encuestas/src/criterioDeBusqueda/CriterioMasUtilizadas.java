@@ -22,11 +22,11 @@ public class CriterioMasUtilizadas extends CriterioDeBusqueda{
 		List<Encuesta> encuestas = new ArrayList<Encuesta>();
 		
 		for(Proyecto p: proyectos) { //todas las encuestas
-			encuestas.addAll(p.getEncuestas());
+			encuestas.addAll(p.getEncuestasDisponibles());
 		}
 		
 		
-		Collections.sort(encuestas, new Comparator<Encuesta>() { //ordenas las encuestas por su cantDeRespuestas 
+		Collections.sort(encuestas, new Comparator<Encuesta>() { //ordena las encuestas por su cantDeRespuestas 
 			public int compare(Encuesta e1, Encuesta e2) {
 				return Integer.valueOf(e1.cantidadDeRespuestasCompletas().compareTo(e2.cantidadDeRespuestasCompletas()));
 			}	

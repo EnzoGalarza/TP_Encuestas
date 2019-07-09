@@ -74,6 +74,7 @@ class SistemaTestCase {
 		investigador1.crearEncuesta(proyecto, 0, LocalDate.of(2019, 7, 6));
 		
 		this.sistema.registrarInvestigador(investigador1);
+		encuesta.finalizarEdicion();
 		List<Encuesta> encuestas = new ArrayList<>();
 		encuestas.add(encuesta);
 		
