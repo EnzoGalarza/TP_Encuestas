@@ -14,7 +14,7 @@ import java.util.List;
 class ProyectoTestCase {
 
 	private Proyecto proyecto1, proyecto2, proyecto3, proyecto4;
-	private Encuesta encuesta1, encuesta2, encuesta3;
+	private Encuesta encuesta1, encuesta2, encuesta3, encuesta4, encuesta5;
 	private ArrayList<Encuesta> encuestas;
 	private ArrayList<Proyecto> subProyectos;
 	
@@ -24,6 +24,8 @@ class ProyectoTestCase {
 		encuesta1 = mock(Encuesta.class);
 		encuesta2 = mock(Encuesta.class);
 		encuesta3 = mock(Encuesta.class);
+		encuesta4 = mock(Encuesta.class);
+		encuesta5 = mock(Encuesta.class);
 		proyecto1 = new Proyecto("Descripcion", "Proposito");
 		proyecto2 = new Proyecto("Recibos","Archivar");
 		proyecto3 = new Proyecto("Papeleo","Controlar");
@@ -63,10 +65,15 @@ class ProyectoTestCase {
 		proyecto2.agregarSubProyecto(proyecto1);
 		
 		proyecto4.agregarSubProyecto(proyecto1); // No se puede agregar
+		proyecto1.agregarSubProyecto(proyecto2); // No se puede agregar
 		
 		List<Proyecto> subProyectos2 = new ArrayList<Proyecto>(); //esto es una lista vacia de subproyectos
+		List<Proyecto> subProyectos3 = new ArrayList<Proyecto>();
+		subProyectos3.add(proyecto3);
+		subProyectos3.add(proyecto4);
 		
 		assertEquals(subProyectos2, proyecto4.getSubProyectos());
+		assertEquals(subProyectos3, proyecto1.getSubProyectos());
 		
 	}
 	
@@ -82,8 +89,25 @@ class ProyectoTestCase {
 		assertTrue(proyecto1.encuestasFinalizadas());
 	}
 	
+	@Test
+	void testEncuestasNoFinalizadas() {
+		when(encuesta1.finalizada()).thenReturn(true);
+		when(encuesta3.finalizada()).thenReturn(true);
+		when(encuesta4.finalizada()).thenReturn(true);
+		when(encuesta2.finalizada()).thenReturn(false);
+		when(encuesta5.finalizada()).thenReturn(true);
+		
+		proyecto1.agregarEncuesta(encuesta1);
+		proyecto1.agregarEncuesta(encuesta2);
+		proyecto1.agregarEncuesta(encuesta3);
+		proyecto1.agregarEncuesta(encuesta4);
+		proyecto1.agregarEncuesta(encuesta5);
+		
+		assertFalse(proyecto1.encuestasFinalizadas());
+	}
+	
 	@Test 
-	void subProyectoFinalizado() {
+	void proyectoFinalizado() {
 		when(encuesta1.finalizada()).thenReturn(true);
 		when(encuesta2.finalizada()).thenReturn(true);
 		when(encuesta3.finalizada()).thenReturn(true);
@@ -105,7 +129,7 @@ class ProyectoTestCase {
 		proyecto2.agregarEncuesta(encuesta2);
 		proyecto1.agregarSubProyecto(proyecto2);
 		proyecto1.agregarEncuesta(encuesta3);
-		//solo si encuesta1 y encuesta2 estan finalizados
+
 		assertFalse(proyecto1.subProyectosYEncuestasFinalizados());
     	
     }
