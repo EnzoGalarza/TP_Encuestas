@@ -8,7 +8,7 @@ import java.util.List;
 import encuesta.Encuesta;
 import proyecto.Proyecto;
 
-public class CriterioMasUtilizadas extends CriterioDeBusqueda{
+public class CriterioMasUtilizadas implements CriterioDeBusqueda{
 	
 	private Integer cantMaximaPosible;
 	

@@ -8,7 +8,7 @@ import java.util.List;
 import encuesta.Encuesta;
 import proyecto.Proyecto;
 
-public class CriterioPorProyecto extends CriterioDeBusqueda{
+public class CriterioPorProyecto implements CriterioDeBusqueda{
 
 	@Override
 	public List<Encuesta> filtrarPorCriterio(List<Proyecto> proyectos) {
