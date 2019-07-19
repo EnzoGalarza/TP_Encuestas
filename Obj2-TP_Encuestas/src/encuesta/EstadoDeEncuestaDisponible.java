@@ -31,6 +31,7 @@ public class EstadoDeEncuestaDisponible extends EstadoDeEncuesta{
 	@Override
 	public void guardarCambios() { 
 		 this.encuesta.encapsulador().nuevaSesion();
+		 this.encuesta.workflow().vaciarApilador();
 		 this.encuesta.actualizarCantidadDeRespuestasEsperada();
 	}
 	

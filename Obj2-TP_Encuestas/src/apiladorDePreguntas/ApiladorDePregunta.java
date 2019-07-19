@@ -41,5 +41,10 @@ public class ApiladorDePregunta {
         // Vacia el stack
 		this.apilador.clear();
 	}
+
+	public Pregunta primerPregunta() {
+		// TODO Auto-generated method stub
+		return this.apilador.get(0);
+	}
 	
 }

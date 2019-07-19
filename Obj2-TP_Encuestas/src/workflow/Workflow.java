@@ -42,6 +42,7 @@ public class Workflow {
 	}
 	
 	public void vaciarApilador() {
+		this.preguntaActual = this.apilador.primerPregunta();
 		this.apilador.vaciarApilador();
 	}
 	
